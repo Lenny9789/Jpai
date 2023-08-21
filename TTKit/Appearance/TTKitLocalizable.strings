@@ -1,0 +1,23 @@
+// `TTKit`库中本地化文本
+
+"seconds" = "秒";
+"minutes" = "分钟";
+"hours" = "小时";
+"days" = "天";
+"months" = "月";
+"years" = "年";
+"just" = "刚刚";
+"yesterday" = "昨天";
+"of" = "的";
+"invalid_data" = "无效的数据";
+"un_uesolved" = "无法解析数据";
+"token_expired" = "令牌过期";
+"token_empty" = "未携带令牌";
+"net_connect_lost" = "网络不给力，请稍后再试～";
+"request_canceled" = "请求取消";
+"current_controller" = " 当前控制器：";
+"tips_kit" = "温馨提示";
+"uninstall_alipay" = "未检测到支付宝客户端，请安装后重试。";
+"uninstall_wechat" = "未检测到微信客户端，请安装后重试。";
+"install_now" = "立即安装";
+"upload_failed" = "上传失败";
