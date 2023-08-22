@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 import WebKit
 #if canImport(SwiftTheme)
 import SwiftTheme
@@ -9,25 +10,29 @@ open class MainWebView: TTViewController, WKUIDelegate, WKScriptMessageHandler, 
     private var url: String!
     private var navTitle: String?
     private var isload: Bool = false
+    private let disposebag = DisposeBag()
     
     lazy var config: WKWebViewConfiguration = {
         let user = WKUserContentController()
+        
         user.add(self, name: "onSubmit_Code") //登录
         user.add(self, name: "sendCode")  //登录获取验证码
         user.add(self, name: "onSubmit")  //注册获取验证码
-        user.add(self, name: "iOSApi")
+        user.add(self, name: "send2iOSApi")
         let conf = WKWebViewConfiguration()
         conf.userContentController = user
         return conf
     }()
     
-    lazy var webView:WKWebView = {
+    lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: config)
+        
         webView.isOpaque = false
         webView.backgroundColor = .clear
         webView.allowsBackForwardNavigationGestures = false
         webView.navigationDelegate = self
         webView.uiDelegate = self
+        
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         webView.addObserver(self, forKeyPath: "title", options: .new, context: nil)
         webView.scrollView.contentInsetAdjustmentBehavior = .never
@@ -96,27 +101,28 @@ open class MainWebView: TTViewController, WKUIDelegate, WKScriptMessageHandler, 
     }
     
     private func setupViews() {
-        switch TTKitConfiguration.General.backgroundColor {
-        case .color(let color):
-            view.backgroundColor = color
-#if canImport(SwiftTheme)
-        case .themeColor(let themeColor):
-            view.theme_backgroundColor = themeColor
-#endif
-        }
-        gk_navBackgroundImage = kMainNavBackImage
-        gk_navLineHidden = true
-        if let navTitle = self.navTitle {
-            gk_navTitle = navTitle
-        }
+        
         
         view.addSubview(webView)
         view.addSubview(progressView)
-        webView.whc_AutoSize(left: 0, top: kNavBarHeight, right: 0, bottom: 0)
+        webView.whc_AutoSize(left: 0, top: 0, right: 0, bottom: 0)
         progressView.whc_Top(0)
             .whc_Left(0)
             .whc_Right(0)
             .whc_Height(2)
+        
+        webView.addSubview(button)
+        button.whc_Top(100)
+            .whc_Right(20)
+            .whc_Width(100)
+            .whc_Height(44)
+        
+        button.rx.tap.subscribe { [weak self] _ in
+            guard let `self` = self else { return }
+            let jsfunc = "gjsbridgeApiCallBack('111')"
+            self.webView.evaluateJavaScript(jsfunc)
+            
+        }.disposed(by: disposebag)
     }
     
     private func loadRequest(urlStr:String) {
@@ -157,8 +163,14 @@ open class MainWebView: TTViewController, WKUIDelegate, WKScriptMessageHandler, 
         }
     }
     
+    lazy var button: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .cyan
+        return button
+    }()
 }
 
+import SwiftyJSON
 extension MainWebView  {
     
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
@@ -167,6 +179,7 @@ extension MainWebView  {
     
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         debugPrint("webWiew load success")
+        
     }
     
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -183,7 +196,25 @@ extension MainWebView  {
     
     public func userContentController(_ userContentController: WKUserContentController,
                                       didReceive message: WKScriptMessage) {
-        debugPrintS(message)
+        if let body = message.body as? String {
+           let dict = JSON.init(parseJSON: body)
+            debugPrint(dict)
+            debugPrint(dict["Phone"].string)
+            switch dict["Type"] {
+            case "1","2", "3":
+                APIService.shared.sendSms(param: dict.rawValue as! Param) { [weak self] result in
+                    guard let `self` = self else { return }
+                    switch result {
+                    case .success(let value):
+                        debugPrint(value)
+                    case .failure(let error):
+                        debugPrint(error.localizedDescription)
+                    }
+                }
+            default:
+                break
+            }
+        }
     }
 }
 

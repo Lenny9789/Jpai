@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A0F0EFA2348CA232C7EC9C4D /* Pods_Jpai.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CE3CC01A6EB5895EE6F2C4 /* Pods_Jpai.framework */; };
+		B81461412A94919E00D6FC15 /* JpaiLoginSuccessModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81461402A94919E00D6FC15 /* JpaiLoginSuccessModel.swift */; };
 		B8B9455B2A90B937000EFA5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B9455A2A90B937000EFA5B /* AppDelegate.swift */; };
 		B8B945622A90B937000EFA5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8B945602A90B937000EFA5B /* Main.storyboard */; };
 		B8B945642A90B938000EFA5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8B945632A90B938000EFA5B /* Assets.xcassets */; };
@@ -143,10 +144,6 @@
 		B8B946A42A90C387000EFA5B /* MemorialMetricsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B946852A90C387000EFA5B /* MemorialMetricsModel.swift */; };
 		B8B946A52A90C387000EFA5B /* MemorialTributeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B946862A90C387000EFA5B /* MemorialTributeModel.swift */; };
 		B8B946A62A90C387000EFA5B /* SignInArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B946872A90C387000EFA5B /* SignInArticleModel.swift */; };
-		B8B946A72A90C387000EFA5B /* Packaging.log in Resources */ = {isa = PBXBuildFile; fileRef = B8B946892A90C387000EFA5B /* Packaging.log */; };
-		B8B946A82A90C387000EFA5B /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8B9468A2A90C387000EFA5B /* ExportOptions.plist */; };
-		B8B946A92A90C387000EFA5B /* minghaimuyuan.ipa in Resources */ = {isa = PBXBuildFile; fileRef = B8B9468B2A90C387000EFA5B /* minghaimuyuan.ipa */; };
-		B8B946AA2A90C387000EFA5B /* DistributionSummary.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8B9468C2A90C387000EFA5B /* DistributionSummary.plist */; };
 		B8B946AB2A90C387000EFA5B /* MessagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B9468D2A90C387000EFA5B /* MessagesModel.swift */; };
 		B8B946AC2A90C387000EFA5B /* OneClickModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B9468E2A90C387000EFA5B /* OneClickModel.swift */; };
 		B8B946AD2A90C387000EFA5B /* WishBillListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B9468F2A90C387000EFA5B /* WishBillListModel.swift */; };
@@ -171,6 +168,7 @@
 		08CE3CC01A6EB5895EE6F2C4 /* Pods_Jpai.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Jpai.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE3C0DB5FE7244D863E063C /* Pods-Jpai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jpai.release.xcconfig"; path = "Target Support Files/Pods-Jpai/Pods-Jpai.release.xcconfig"; sourceTree = "<group>"; };
 		72FBF5E4FAC709F005320700 /* Pods-Jpai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jpai.debug.xcconfig"; path = "Target Support Files/Pods-Jpai/Pods-Jpai.debug.xcconfig"; sourceTree = "<group>"; };
+		B81461402A94919E00D6FC15 /* JpaiLoginSuccessModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JpaiLoginSuccessModel.swift; sourceTree = "<group>"; };
 		B8B945572A90B937000EFA5B /* Jpai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jpai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8B9455A2A90B937000EFA5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8B945612A90B937000EFA5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -309,10 +307,6 @@
 		B8B946852A90C387000EFA5B /* MemorialMetricsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemorialMetricsModel.swift; sourceTree = "<group>"; };
 		B8B946862A90C387000EFA5B /* MemorialTributeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemorialTributeModel.swift; sourceTree = "<group>"; };
 		B8B946872A90C387000EFA5B /* SignInArticleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInArticleModel.swift; sourceTree = "<group>"; };
-		B8B946892A90C387000EFA5B /* Packaging.log */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Packaging.log; sourceTree = "<group>"; };
-		B8B9468A2A90C387000EFA5B /* ExportOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
-		B8B9468B2A90C387000EFA5B /* minghaimuyuan.ipa */ = {isa = PBXFileReference; lastKnownFileType = file; path = minghaimuyuan.ipa; sourceTree = "<group>"; };
-		B8B9468C2A90C387000EFA5B /* DistributionSummary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DistributionSummary.plist; sourceTree = "<group>"; };
 		B8B9468D2A90C387000EFA5B /* MessagesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesModel.swift; sourceTree = "<group>"; };
 		B8B9468E2A90C387000EFA5B /* OneClickModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneClickModel.swift; sourceTree = "<group>"; };
 		B8B9468F2A90C387000EFA5B /* WishBillListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishBillListModel.swift; sourceTree = "<group>"; };
@@ -747,7 +741,6 @@
 				B8B946852A90C387000EFA5B /* MemorialMetricsModel.swift */,
 				B8B946862A90C387000EFA5B /* MemorialTributeModel.swift */,
 				B8B946872A90C387000EFA5B /* SignInArticleModel.swift */,
-				B8B946882A90C387000EFA5B /* minghaimuyuan 2023-05-12 23-58-02 */,
 				B8B9468D2A90C387000EFA5B /* MessagesModel.swift */,
 				B8B9468E2A90C387000EFA5B /* OneClickModel.swift */,
 				B8B9468F2A90C387000EFA5B /* WishBillListModel.swift */,
@@ -763,19 +756,9 @@
 				B8B946992A90C387000EFA5B /* EventListModel.swift */,
 				B8B9469A2A90C387000EFA5B /* ConfigModel.swift */,
 				B8B9469B2A90C387000EFA5B /* FriendsModel.swift */,
+				B81461402A94919E00D6FC15 /* JpaiLoginSuccessModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		B8B946882A90C387000EFA5B /* minghaimuyuan 2023-05-12 23-58-02 */ = {
-			isa = PBXGroup;
-			children = (
-				B8B946892A90C387000EFA5B /* Packaging.log */,
-				B8B9468A2A90C387000EFA5B /* ExportOptions.plist */,
-				B8B9468B2A90C387000EFA5B /* minghaimuyuan.ipa */,
-				B8B9468C2A90C387000EFA5B /* DistributionSummary.plist */,
-			);
-			path = "minghaimuyuan 2023-05-12 23-58-02";
 			sourceTree = "<group>";
 		};
 		FF80B02E8BDA3C8C523F5256 /* Frameworks */ = {
@@ -846,13 +829,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8B946A72A90C387000EFA5B /* Packaging.log in Resources */,
 				B8B945672A90B938000EFA5B /* LaunchScreen.storyboard in Resources */,
-				B8B946A82A90C387000EFA5B /* ExportOptions.plist in Resources */,
 				B8B945642A90B938000EFA5B /* Assets.xcassets in Resources */,
 				B8B946062A90C2F6000EFA5B /* TTKitLocalizable.strings in Resources */,
-				B8B946A92A90C387000EFA5B /* minghaimuyuan.ipa in Resources */,
-				B8B946AA2A90C387000EFA5B /* DistributionSummary.plist in Resources */,
 				B8B945622A90B937000EFA5B /* Main.storyboard in Resources */,
 				B8B946472A90C2F6000EFA5B /* TToast.bundle in Resources */,
 			);
@@ -985,6 +964,7 @@
 				B8B946B22A90C387000EFA5B /* MemorialsResModel.swift in Sources */,
 				B8B946422A90C2F6000EFA5B /* TTMonitorDelTextField.swift in Sources */,
 				B8B946742A90C2F6000EFA5B /* TTNetworkingOC.swift in Sources */,
+				B81461412A94919E00D6FC15 /* JpaiLoginSuccessModel.swift in Sources */,
 				B8B946AF2A90C387000EFA5B /* ImageListItemModel.swift in Sources */,
 				B8B946202A90C2F6000EFA5B /* UIFont.swift in Sources */,
 				B8B946B72A90C387000EFA5B /* EventListModel.swift in Sources */,

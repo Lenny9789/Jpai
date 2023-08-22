@@ -11,58 +11,92 @@ extension APIService {
     
     
     //-MARK: 用户
-    func loginOneClick(token: String, completion: @escaping (TTGenericResult<OneClickDataModel>) -> Void) {
-        var parameter = [String: String]()
+    func sendSms(param: Param, completion: @escaping (TTGenericResult<Int>) -> Void) {
         let headers: [String: String] = [:]
-        parameter["token"] = token
-        TTNET.fetch(API.Account.shared.loginOneClick, parameters: parameter, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: OneClickDataModel.self)
+        TTNET.fetch(API.Account.shared.sendSms, parameters: param, headers: headers).result { result in
+            let parsedRet = parseResponseToModel(result: result, type: Int.self)
             switch parsedRet {
             case .success(let value):
-                completion(.success(value: value as! OneClickDataModel))
+                completion(.success(value: value as! Int))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func loginFetchCaptcha(phone: String, completion: @escaping (TTBooleanResult) -> Void) {
-        let parameter: [String: Any] = ["phone": phone]
+    func loginRegister(param: Param, completion: @escaping (TTGenericResult<JpaiLoginSuccessModel>) -> Void) {
         let headers: [String: String] = [:]
-        
-        TTNET.fetch(API.Account.shared.loginFetchCaptcha, parameters: parameter, headers: headers).result { result in
+        TTNET.fetch(API.Account.shared.loginRegister, parameters: param, headers: headers).result { result in
+            let parsedRet = parseResponseToModel(result: result, type: JpaiLoginSuccessModel.self)
+            switch parsedRet {
+            case .success(let value):
+                completion(.success(value: value as! JpaiLoginSuccessModel))
+            case .failure(let error):
+                completion(.failure(error: error))
+            }
+        }
+    }
+    
+    func loginPasswd(param: Param, completion: @escaping (TTGenericResult<JpaiLoginSuccessModel>) -> Void) {
+        let headers: [String: String] = [:]
+        TTNET.fetch(API.Account.shared.loginPasswd, parameters: param, headers: headers).result { result in
+            let parsedRet = parseResponseToModel(result: result, type: JpaiLoginSuccessModel.self)
+            switch parsedRet {
+            case .success(let value):
+                completion(.success(value: value as! JpaiLoginSuccessModel))
+            case .failure(let error):
+                completion(.failure(error: error))
+            }
+        }
+    }
+    
+    func changePasswd(param: Param, completion: @escaping (TTGenericResult<String>) -> Void) {
+        let headers: [String: String] = ["token": ""]
+        TTNET.fetch(API.Account.shared.changePasswd, parameters: param, headers: headers).result { result in
             let parsedRet = parseResponseToModel(result: result, type: String.self)
             switch parsedRet {
-            case .success(_):
-                completion(.success)
+            case .success(let value):
+                completion(.success(value: value as! String))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func loginCaptcha(phone: String, code: String, completion: @escaping (TTGenericResult<OneClickDataModel>) -> Void) {
-        let parameter: [String: Any] = ["phone": phone, "code": code]
-        let headers: [String: String] = [:]
-        TTNET.fetch(API.Account.shared.loginCaptcha, parameters: parameter, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: OneClickDataModel.self)
+    func checkToken(param: Param, completion: @escaping (TTGenericResult<String>) -> Void) {
+        let headers: [String: String] = ["token": ""]
+        TTNET.fetch(API.Account.shared.checkToken, parameters: param, headers: headers).result { result in
+            let parsedRet = parseResponseToModel(result: result, type: String.self)
             switch parsedRet {
             case .success(let value):
-                completion(.success(value: value as! OneClickDataModel))
+                completion(.success(value: value as! String))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func loginPwd(account: String, pwd: String, completion: @escaping (TTGenericResult<OneClickDataModel>) -> Void) {
-        let parameter: [String: Any] = ["account": account, "password": pwd]
-        let headers: [String: String] = [:]
-        TTNET.fetch(API.Account.shared.loginPwd, parameters: parameter, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: OneClickDataModel.self)
+    func fetchUserInfo(userId: String, completion: @escaping (TTGenericResult<JpaiUserInfoModel>) -> Void) {
+        let headers: [String: String] = ["token": ""]
+        let param: Param = ["userid": userId]
+        TTNET.fetch(API.Account.shared.userInfo, parameters: param, headers: headers).result { result in
+            let parsedRet = parseResponseToModel(result: result, type: JpaiUserInfoModel.self)
             switch parsedRet {
             case .success(let value):
-                completion(.success(value: value as! OneClickDataModel))
+                completion(.success(value: value as! JpaiUserInfoModel))
+            case .failure(let error):
+                completion(.failure(error: error))
+            }
+        }
+    }
+    
+    func updateUserInfo(param: Param, completion: @escaping (TTGenericResult<String>) -> Void) {
+        let headers: [String: String] = ["token": ""]
+        TTNET.fetch(API.Account.shared.userInfo, parameters: param, headers: headers).result { result in
+            let parsedRet = parseResponseToModel(result: result, type: String.self)
+            switch parsedRet {
+            case .success(let value):
+                completion(.success(value: value as! String))
             case .failure(let error):
                 completion(.failure(error: error))
             }

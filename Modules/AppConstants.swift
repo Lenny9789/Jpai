@@ -31,7 +31,7 @@ let kPlayerContainerViewTag = 1012
 
 private let testDomain = "https://www.minghaimuyuan.vip"
 private let prodDomain = "https://www.minghaimuyuan.xyz"
-let kAppDomain = prodDomain
+let kAppDomain = "http://220.173.138.144:19804"//prodDomain
 
 var kUserToken: String {
     set {

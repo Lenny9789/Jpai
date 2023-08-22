@@ -46,27 +46,18 @@ public struct APIPage {
 
 /// API接口地址
 public struct API {
-
-    // MARK: 公共分类
-    public struct Common {
-        static let shared = Common()
-        public var uplaod: APIItem { APIItem("/api/general/upload", d: "上传", m: .post) }
-        public var musics: APIItem { APIItem("/api/general/musics", d: "音乐列表", m: .get) }
-        public var images: APIItem { APIItem("/api/general/images", d: "图片列表", m: .get) }
-        public var ossPolicy: APIItem { APIItem("/api/general/get-oss-policy", d: "OSS-Policy") }
-        public var banners: APIItem { APIItem("/api/general/banners", d: "首页轮播图") }
-        public var configs: APIItem { APIItem("/api/general/configs", d: "全局配置") }
-    }
     
     // MARK: 登录/注册
     public struct Account {
         static let shared = Account()
 
-        public var loginPwd: APIItem { APIItem("/api/user/password-login", d: "账号密码登录", m: .post) }
-        public var loginFetchCaptcha: APIItem { APIItem("/api/user/captcha", d: "获取验证码", m: .get) }
-        public var loginCaptcha: APIItem { APIItem("/api/user/captcha-login", d: "验证码登录", m: .post) }
-        public var loginOneClick: APIItem { APIItem("/api/user/phone-one-click-login", d: "一键登录", m: .post) }
-        public var pwdReset: APIItem { APIItem("/api/user/password-reset", d: "验证码重置密码", m: .post) }
+        public var sendSms: APIItem { APIItem("/api/user/send_sms", d: "发送验证码", m: .post) }
+        public var loginRegister: APIItem { APIItem("/api/user/login", d: "登录或者注册", m: .post) }
+        public var checkToken: APIItem { APIItem("/api/user/check_token", d: "token验证", m: .post) }
+        public var loginPasswd: APIItem { APIItem("/api/user/login_by_password", d: "密码登录", m: .post) }
+        public var changePasswd: APIItem { APIItem("/api/user/change_password", d: "修改密码", m: .post) }
+        public var userInfo: APIItem { APIItem("/api/user/find_info", d: "获取用户信息", m: .post) }
+        public var updateInfo: APIItem { APIItem("/api/user/update_info", d: "修改账户信息", m: .post) }
     }
     
     // MARK: 我的家族

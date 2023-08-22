@@ -4,9 +4,9 @@ import CleanJSON
 /// 服务器返回基本模型
 struct NetBaseResponse: Codable {
     /// 错误码
-    var code: Int
+    var status: Int
     /// 错误提示
-    var message: String
+    var msg: String
     /// 业务数据
 //    var data: String
     
@@ -28,7 +28,7 @@ public func parseResponseToModel<T : Decodable>(result: TTGenericResult<Any>,
             if let respData = tt_jsonToData(respDic){
                 let baseModel = try? CleanJSONDecoder().decode(NetBaseResponse.self, from: respData)
                 if let baseModel = baseModel {
-                    if baseModel.code == TTError.ServerErrorCode.success.rawValue {
+                    if baseModel.status == TTError.ServerErrorCode.success.rawValue {
                         if let data = respDic[NetBaseResponse.ReservedKey.data.rawValue] {
                             if data is Array<Any> { //返回的是数组
                                 if let type = type { //解析数据
@@ -58,17 +58,16 @@ public func parseResponseToModel<T : Decodable>(result: TTGenericResult<Any>,
                                 } else { //不解析
                                     return .success(value: dicData)
                                 }
-                            }
-                            else {
+                            } else {
                                 return .success(value: data)
                             }
                         }
                     } else {
-                        if baseModel.code == TTError.ServerErrorCode.tokenExpired.rawValue ||
-                            baseModel.code == TTError.ServerErrorCode.tokenEmpty.rawValue {
+                        if baseModel.status == TTError.ServerErrorCode.tokenExpired.rawValue ||
+                            baseModel.status == TTError.ServerErrorCode.tokenEmpty.rawValue {
                             NotificationCenter.default.post(name: TTNotifyName.App.needLogin, object: nil)
                         }
-                        return .failure(error: TTError(code: baseModel.code, desc: baseModel.message))
+                        return .failure(error: TTError(code: baseModel.status, desc: baseModel.msg))
                     }
                 }
             }
