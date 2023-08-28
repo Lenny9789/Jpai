@@ -10,19 +10,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         setupApplication()
-        
-        let webview = MainWebView.init(url: "http://192.168.31.8:5173/login")
-        
-        window = UIWindow.init(frame: UIScreen.main.bounds)
-        
-        window?.rootViewController = webview
-        window?.makeKeyAndVisible()
-        
+        let config = OIMInitConfig()
+        config.apiAddr = "http://220.173.138.144:10002"
+        config.wsAddr = "ws://220.173.138.144:10001"
+        config.objectStorage = "minio"
+        config.isLogStandardOutput = false
+//        config.dataDir = "/Documents"
+        let initSuccess = OIMManager.manager.initSDK(with: config) {
+            debugPrint("connecting.....")
+        } onConnectFailure: { code, message in
+            debugPrint("code:\(code), message:\(message ?? "")")
+        } onConnectSuccess: { [weak self] in
+            guard let `self` = self else { return }
+            debugPrint("connect Success.")
+            
+        } onKickedOffline: {
+            debugPrint("kicked Offline")
+        } onUserTokenExpired: {
+            debugPrint("user Token expired")
+        }
+
+        if initSuccess {
+            self.setupMainController()
+        }
         return true
     }
 }
 
 extension AppDelegate {
+    
+    func setupMainController() {
+        let webview = MainWebView.init(url: "http://192.168.31.8:5173/login")
+        let nav = UINavigationController(rootVC: webview)
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        
+        window?.rootViewController = nav
+        window?.makeKeyAndVisible()
+    }
     
     func setupApplication() {
         /// `TTKit` 全局配置

@@ -13,7 +13,7 @@ class JpaiLoginSuccessModel: Codable {
     var TokenExpired: Int = 0
 }
 
-class JpaiUserInfoModel: Codable {
+class JpaiUserInfoModel: NSObject, Codable {
     
     var Birth: String = ""
     var Email: String = ""

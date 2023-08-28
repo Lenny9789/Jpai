@@ -11,6 +11,7 @@ import UIKit
 @_exported import GKNavigationBarSwift
 @_exported import SwiftyUserDefaults
 @_exported import CleanJSON
+@_exported import SwiftyJSON
 
 public typealias Param = [String: Any]
 
@@ -42,40 +43,40 @@ var kUserToken: String {
     }
 }
 
-var kUserModel: UserModel! {
+var kUserModel: JSON! {
     set {
         Defaults[\.userModelString] = newValue.toJSONString() ?? ""
     }
     get {
         guard kUserToken.count > 0 else {
-            return UserModel()
+            return JSON()
         }
         
         let modelStr = Defaults[\.userModelString]
         guard modelStr.count > 0 else {
-            return UserModel()
+            return JSON()
         }
         
-        let model = try! CleanJSONDecoder.decode(modelStr, to: UserModel.self)
+        let model = JSON(parseJSON: modelStr)
         return model
     }
 }
 
-var kUserDetailModel: UserDetail! {
+var kUserInfoModel: JSON! {
     set {
         Defaults[\.userDetailString] = newValue.toJSONString() ?? ""
     }
     get {
         guard kUserToken.count > 0 else {
-            return UserDetail()
+            return JSON()
         }
         
         let modelStr = Defaults[\.userDetailString]
         guard modelStr.count > 0 else {
-            return UserDetail()
+            return JSON()
         }
         
-        let model = try! CleanJSONDecoder.decode(modelStr, to: UserDetail.self)
+        let model = JSON(parseJSON: modelStr)
         return model
     }
 }

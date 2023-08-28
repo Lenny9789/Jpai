@@ -11,92 +11,102 @@ extension APIService {
     
     
     //-MARK: 用户
-    func sendSms(param: Param, completion: @escaping (TTGenericResult<Int>) -> Void) {
+    func sendSms(param: Param, completion: @escaping (TTGenericResult<JSON>) -> Void) {
         let headers: [String: String] = [:]
         TTNET.fetch(API.Account.shared.sendSms, parameters: param, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: Int.self)
-            switch parsedRet {
+//            let parsedRet = parseResponseToModel(result: result, type: Int.self)
+            switch result {
             case .success(let value):
-                completion(.success(value: value as! Int))
+                completion(.success(value: JSON(value)))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func loginRegister(param: Param, completion: @escaping (TTGenericResult<JpaiLoginSuccessModel>) -> Void) {
+    func loginRegister(param: Param, completion: @escaping (TTGenericResult<JSON>) -> Void) {
         let headers: [String: String] = [:]
         TTNET.fetch(API.Account.shared.loginRegister, parameters: param, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: JpaiLoginSuccessModel.self)
-            switch parsedRet {
+//            let parsedRet = parseResponseToModel(result: result, type: String.self)
+            switch result {
             case .success(let value):
-                completion(.success(value: value as! JpaiLoginSuccessModel))
+                completion(.success(value: JSON(value)))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func loginPasswd(param: Param, completion: @escaping (TTGenericResult<JpaiLoginSuccessModel>) -> Void) {
+    func loginPasswd(param: Param, completion: @escaping (TTGenericResult<JSON>) -> Void) {
         let headers: [String: String] = [:]
         TTNET.fetch(API.Account.shared.loginPasswd, parameters: param, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: JpaiLoginSuccessModel.self)
-            switch parsedRet {
+//            let parsedRet = parseResponseToModel(result: result, type: String.self)
+            switch result {
             case .success(let value):
-                completion(.success(value: value as! JpaiLoginSuccessModel))
+                completion(.success(value: JSON(value)))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func changePasswd(param: Param, completion: @escaping (TTGenericResult<String>) -> Void) {
-        let headers: [String: String] = ["token": ""]
+    func changePasswd(param: Param, completion: @escaping (TTGenericResult<JSON>) -> Void) {
+        guard kUserToken.count > 0 else {
+            return
+        }
+        let headers: [String: String] = ["token": kUserToken]
         TTNET.fetch(API.Account.shared.changePasswd, parameters: param, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: String.self)
-            switch parsedRet {
+//            let parsedRet = parseResponseToModel(result: result, type: String.self)
+            switch result {
             case .success(let value):
-                completion(.success(value: value as! String))
+                completion(.success(value: JSON(value)))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func checkToken(param: Param, completion: @escaping (TTGenericResult<String>) -> Void) {
+    func checkToken(param: Param, completion: @escaping (TTGenericResult<JSON>) -> Void) {
         let headers: [String: String] = ["token": ""]
         TTNET.fetch(API.Account.shared.checkToken, parameters: param, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: String.self)
-            switch parsedRet {
+//            let parsedRet = parseResponseToModel(result: result, type: String.self)
+            switch result {
             case .success(let value):
-                completion(.success(value: value as! String))
+                completion(.success(value: JSON(value)))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func fetchUserInfo(userId: String, completion: @escaping (TTGenericResult<JpaiUserInfoModel>) -> Void) {
-        let headers: [String: String] = ["token": ""]
-        let param: Param = ["userid": userId]
+    
+    func fetchUserInfo(completion: @escaping (TTGenericResult<JSON>) -> Void) {
+        guard kUserToken.count > 0 else {
+            return
+        }
+        let headers: [String: String] = ["token": kUserToken]
+        let param: Param = ["userid": kUserModel["Id"].stringValue]
         TTNET.fetch(API.Account.shared.userInfo, parameters: param, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: JpaiUserInfoModel.self)
-            switch parsedRet {
+//            let parsedRet = parseResponseToModel(result: result, type: JpaiUserInfoModel.self)
+            switch result {
             case .success(let value):
-                completion(.success(value: value as! JpaiUserInfoModel))
+                completion(.success(value: JSON(value)))
             case .failure(let error):
                 completion(.failure(error: error))
             }
         }
     }
     
-    func updateUserInfo(param: Param, completion: @escaping (TTGenericResult<String>) -> Void) {
-        let headers: [String: String] = ["token": ""]
-        TTNET.fetch(API.Account.shared.userInfo, parameters: param, headers: headers).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: String.self)
-            switch parsedRet {
+    func updateUserInfo(param: Param, completion: @escaping (TTGenericResult<JSON>) -> Void) {
+        guard kUserToken.count > 0 else {
+            return
+        }
+        let headers: [String: String] = ["token": kUserToken]
+        TTNET.fetch(API.Account.shared.updateInfo, parameters: param, headers: headers).result { result in
+//            let parsedRet = parseResponseToModel(result: result, type: String.self)
+            switch result {
             case .success(let value):
-                completion(.success(value: value as! String))
+                completion(.success(value: JSON(value)))
             case .failure(let error):
                 completion(.failure(error: error))
             }
@@ -214,75 +224,7 @@ extension APIService {
     
     // -MARK: 纪念馆
     // 创建纪念馆
-    func fetchMemorialSave(
-        param: [String: Any],
-        completion: @escaping (TTGenericResult<MemorialCreatModel>) -> Void) {
-        let header = ["token": kUserToken]
-        
-            TTNET.fetch(API.Memorial.shared.save, parameters: param, headers: header).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: MemorialCreatModel.self)
-            switch parsedRet {
-            case .success(let value):
-                completion(.success(value: value as! MemorialCreatModel))
-            case .failure(let error):
-                completion(.failure(error: error))
-            }
-        }
-    }
     
-    //获取纪念馆列表
-    func fetchMemorials(
-        param: [String: Any],
-        completion: @escaping (TTGenericResult<MemorialListModel>) -> Void) {
-        let header = ["token": kUserToken]
-        
-        TTNET.fetch(API.Memorial.shared.list,
-                    parameters: param,
-                    headers: header).result { result in
-        let parsedRet = parseResponseToModel(result: result, type: MemorialListModel.self)
-        switch parsedRet {
-        case .success(let value):
-            completion(.success(value: value as! MemorialListModel))
-        case .failure(let error):
-            completion(.failure(error: error))
-        }
-        }
-    }
-    func fetchMemorialHall(
-        param: [String: Any],
-        completion: @escaping (TTGenericResult<MemorialListModel>) -> Void) {
-        let header = ["token": kUserToken]
-        
-        TTNET.fetch(API.Memorial.shared.memorialHall,
-                    parameters: param,
-                    headers: header).result { result in
-        let parsedRet = parseResponseToModel(result: result, type: MemorialListModel.self)
-        switch parsedRet {
-        case .success(let value):
-            completion(.success(value: value as! MemorialListModel))
-        case .failure(let error):
-            completion(.failure(error: error))
-        }
-        }
-    }
-    // 用户拥有的纪念馆
-    func fetchOwnerMemorials(
-        param: [String: Any],
-        completion: @escaping (TTGenericResult<MemorialListModel>) -> Void) {
-        let header = ["token": kUserToken]
-        
-        TTNET.fetch(API.Memorial.shared.userOwnerList,
-                    parameters: param,
-                    headers: header).result { result in
-        let parsedRet = parseResponseToModel(result: result, type: MemorialListModel.self)
-        switch parsedRet {
-        case .success(let value):
-            completion(.success(value: value as! MemorialListModel))
-        case .failure(let error):
-            completion(.failure(error: error))
-        }
-        }
-    }
     
     //上传图片视频
     func uploadMemorialsRes(
@@ -452,40 +394,8 @@ extension APIService {
         }
     }
     
-    //-MARK: 思念值排行
-    func memorialMissVList(param: [String: Any],
-                           completion: @escaping (TTGenericResult<MissVListModel>) -> Void) {
-        let header = ["token": kUserToken]
-
-        TTNET.fetch(API.Memorial.shared.userMissVList,
-                    parameters: param,
-                    headers: header).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: MissVListModel.self)
-            switch parsedRet {
-            case .success(let value):
-                completion(.success(value: value as! MissVListModel))
-            case .failure(let error):
-                completion(.failure(error: error))
-            }
-        }
-    }
-    //-MARK: 事件列表
-    func memorialEventList(param: [String: Any],
-                           completion: @escaping (TTGenericResult<EventListModel>) -> Void) {
-        let header = ["token": kUserToken]
-        
-        TTNET.fetch(API.Memorial.shared.userEvents,
-                    parameters: param,
-                    headers: header).result { result in
-            let parsedRet = parseResponseToModel(result: result, type: EventListModel.self)
-            switch parsedRet {
-            case .success(let value):
-                completion(.success(value: value as! EventListModel))
-            case .failure(let error):
-                completion(.failure(error: error))
-            }
-        }
-    }
+    
+    
     //-MARK: 留言
     func leaveMessage(param: Param,
                       completion: @escaping (TTGenericResult<MemorialMetricsModel>) -> Void) {

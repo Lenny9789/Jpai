@@ -53,6 +53,7 @@ public struct API {
 
         public var sendSms: APIItem { APIItem("/api/user/send_sms", d: "发送验证码", m: .post) }
         public var loginRegister: APIItem { APIItem("/api/user/login", d: "登录或者注册", m: .post) }
+        public var loginOut: APIItem { APIItem("/api/user/loginOut", d: "退出", m: .post) }
         public var checkToken: APIItem { APIItem("/api/user/check_token", d: "token验证", m: .post) }
         public var loginPasswd: APIItem { APIItem("/api/user/login_by_password", d: "密码登录", m: .post) }
         public var changePasswd: APIItem { APIItem("/api/user/change_password", d: "修改密码", m: .post) }
