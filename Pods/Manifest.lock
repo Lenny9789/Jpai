@@ -1,58 +1,57 @@
 PODS:
   - Alamofire (5.7.1)
+  - AliRTCSdk (2.5.7)
   - Cache (6.0.0)
   - CleanJSON (1.0.9)
+  - CocoaAsyncSocket (7.6.5)
   - DeviceKit (5.0.0)
   - ESPullToRefresh (2.9.3)
-  - FSPagerView (0.8.3)
   - GKNavigationBarSwift (1.6.4)
-  - JXPagingView/Paging (2.1.2)
-  - JXSegmentedView (1.3.0)
-  - Kingfisher (7.9.0)
+  - Kingfisher (7.9.1)
+  - KTVCocoaHTTPServer (1.0.0):
+    - CocoaAsyncSocket
+  - KTVHTTPCache (2.0.1):
+    - KTVCocoaHTTPServer
   - Lantern (1.1.5)
   - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
-  - OpenIMSDK (3.1.0):
+  - OpenIMSDK (3.2.0):
     - MJExtension
-    - OpenIMSDK/Callbacker (= 3.1.0)
-    - OpenIMSDK/CallbackProxy (= 3.1.0)
-    - OpenIMSDK/Interface (= 3.1.0)
-    - OpenIMSDK/Model (= 3.1.0)
-    - OpenIMSDK/Utils (= 3.1.0)
-    - OpenIMSDKCore (= 3.1.0)
-  - OpenIMSDK/Callbacker (3.1.0):
+    - OpenIMSDK/Callbacker (= 3.2.0)
+    - OpenIMSDK/CallbackProxy (= 3.2.0)
+    - OpenIMSDK/Interface (= 3.2.0)
+    - OpenIMSDK/Model (= 3.2.0)
+    - OpenIMSDK/Utils (= 3.2.0)
+    - OpenIMSDKCore (= 3.2.0)
+  - OpenIMSDK/Callbacker (3.2.0):
     - MJExtension
     - OpenIMSDK/Model
     - OpenIMSDK/Utils
-    - OpenIMSDKCore (= 3.1.0)
-  - OpenIMSDK/CallbackProxy (3.1.0):
+    - OpenIMSDKCore (= 3.2.0)
+  - OpenIMSDK/CallbackProxy (3.2.0):
     - MJExtension
     - OpenIMSDK/Utils
-    - OpenIMSDKCore (= 3.1.0)
-  - OpenIMSDK/Interface (3.1.0):
+    - OpenIMSDKCore (= 3.2.0)
+  - OpenIMSDK/Interface (3.2.0):
     - MJExtension
     - OpenIMSDK/Callbacker
     - OpenIMSDK/CallbackProxy
     - OpenIMSDK/Model
-    - OpenIMSDKCore (= 3.1.0)
-  - OpenIMSDK/Model (3.1.0):
+    - OpenIMSDKCore (= 3.2.0)
+  - OpenIMSDK/Model (3.2.0):
     - MJExtension
     - OpenIMSDK/Utils
-    - OpenIMSDKCore (= 3.1.0)
-  - OpenIMSDK/Utils (3.1.0):
+    - OpenIMSDKCore (= 3.2.0)
+  - OpenIMSDK/Utils (3.2.0):
     - MJExtension
-    - OpenIMSDKCore (= 3.1.0)
-  - OpenIMSDKCore (3.1.0)
+    - OpenIMSDKCore (= 3.2.0)
+  - OpenIMSDKCore (3.2.0)
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
-  - RxAnimated (0.9.0):
-    - RxAnimated/Core (= 0.9.0)
-    - RxCocoa (~> 6.0)
-    - RxSwift (~> 6.0)
-  - RxAnimated/Core (0.9.0):
-    - RxCocoa (~> 6.0)
-    - RxSwift (~> 6.0)
+  - RxBinding (0.5):
+    - RxCocoa (~> 6)
+    - RxSwift (~> 6)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
@@ -103,29 +102,34 @@ PODS:
   - SwiftTheme (0.6.4)
   - SwiftyJSON (4.3.0)
   - SwiftyUserDefaults (5.3.0)
-  - Then (3.0.0)
   - WHC_KeyboardManager (1.3.0)
   - WHC_Layout (1.1.6.2)
+  - ZFPlayer (4.0.3):
+    - ZFPlayer/Core (= 4.0.3)
+  - ZFPlayer/AVPlayer (4.0.3):
+    - ZFPlayer/Core
+  - ZFPlayer/ControlView (4.0.3):
+    - ZFPlayer/Core
+  - ZFPlayer/Core (4.0.3)
   - ZLPhotoBrowser (4.1.9):
     - ZLPhotoBrowser/Core (= 4.1.9)
   - ZLPhotoBrowser/Core (4.1.9)
 
 DEPENDENCIES:
   - Alamofire
+  - AliRTCSdk (= 2.5.7)
   - Cache
   - CleanJSON
   - DeviceKit
   - ESPullToRefresh
-  - FSPagerView
   - GKNavigationBarSwift
-  - JXPagingView/Paging
-  - JXSegmentedView
   - Kingfisher (~> 7.0)
+  - KTVHTTPCache
   - Lantern
   - MBProgressHUD (~> 1.2.0)
   - OpenIMSDK
   - R.swift (~> 6.0)
-  - RxAnimated
+  - RxBinding
   - RxCocoa
   - RxGesture
   - RxKeyboard
@@ -137,23 +141,26 @@ DEPENDENCIES:
   - SwiftTheme
   - SwiftyJSON (~> 4.0)
   - SwiftyUserDefaults (~> 5.0)
-  - Then
   - WHC_KeyboardManager
   - WHC_Layout
+  - ZFPlayer (~> 4.0.3)
+  - ZFPlayer/AVPlayer (~> 4.0.3)
+  - ZFPlayer/ControlView (~> 4.0.3)
   - ZLPhotoBrowser (~> 4.1.7)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - AliRTCSdk
     - Cache
     - CleanJSON
+    - CocoaAsyncSocket
     - DeviceKit
     - ESPullToRefresh
-    - FSPagerView
     - GKNavigationBarSwift
-    - JXPagingView
-    - JXSegmentedView
     - Kingfisher
+    - KTVCocoaHTTPServer
+    - KTVHTTPCache
     - Lantern
     - MBProgressHUD
     - MJExtension
@@ -161,7 +168,7 @@ SPEC REPOS:
     - OpenIMSDKCore
     - R.swift
     - R.swift.Library
-    - RxAnimated
+    - RxBinding
     - RxCocoa
     - RxGesture
     - RxKeyboard
@@ -174,30 +181,31 @@ SPEC REPOS:
     - SwiftTheme
     - SwiftyJSON
     - SwiftyUserDefaults
-    - Then
     - WHC_KeyboardManager
     - WHC_Layout
+    - ZFPlayer
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  AliRTCSdk: edd908edd25bd47167950383406f60396c2eb062
   Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
   CleanJSON: 910a36465ce4829e264a902ccf6d1455fdd9f980
+  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DeviceKit: 0fd016a2cb67aca17c33dc23171cac270131eb88
   ESPullToRefresh: 0d68daa602b343c81753a1b95e09fd0bfcddfd40
-  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GKNavigationBarSwift: 50ccb0c404b2b13aaa015343083938a15805f89d
-  JXPagingView: 90924b364a2ff7e94db534fad1fa50925ff69ee4
-  JXSegmentedView: fec0d335355b6e019c494fe2e030bde8a36d2df6
-  Kingfisher: 59f908b6d2f403b0a3e539debb0eec05cb27002c
+  Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
+  KTVCocoaHTTPServer: df8d7b861e603ff8037e9b2138aca2563a6b768d
+  KTVHTTPCache: 588c3eb16f6bd1e6fde1e230dabfb7bd4e490a4d
   Lantern: b192e7146c6d04e15e627f37281254a6a8593703
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
-  OpenIMSDK: 7429864255a98697154cd797934eab8d796bae38
-  OpenIMSDKCore: 4fc3ea821afce0aeb7f759f8ea15c9efd2859156
+  OpenIMSDK: 673f2ae1c6d91eba26a6729a6b759417302df7c0
+  OpenIMSDKCore: 95efffa47238c496566e5397af3933827361ba00
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
-  RxAnimated: e53fb66cafc0539faf881b734f7412a624527f0a
+  RxBinding: e3c76d02d0ee3f1a306a0fb8e8ef6f2eda65a375
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
@@ -210,11 +218,11 @@ SPEC CHECKSUMS:
   SwiftTheme: 007cbaf1f9e171caf6448a4657533e54c682b285
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   SwiftyUserDefaults: 63f80248cf5bfb3458825d9a78f2eb7e1293a040
-  Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
   WHC_KeyboardManager: feb58d9e4ed1c5f4bd8986c7904e7b23c3c246b9
   WHC_Layout: e5aa389f8f2b3a47d8b48ca0b0e1b1fbdc8d26a6
+  ZFPlayer: 624c92de06eb34df322c3b53b4c9ce760f528f7a
   ZLPhotoBrowser: 320aec37f64b0f58d40abd852956c64530011ea4
 
-PODFILE CHECKSUM: 234b539bc59bde542bf6c043f88a5a56a9fa487d
+PODFILE CHECKSUM: 90a4dd254b2172c8f73cd4128372581ec842426c
 
 COCOAPODS: 1.12.1

@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-protocol CameraViewControllerDelegate: class {
+protocol CameraViewControllerDelegate: AnyObject {
     
     func didOutput(_ code:String)
     

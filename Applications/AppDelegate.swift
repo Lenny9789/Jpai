@@ -8,30 +8,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
         setupApplication()
-        let config = OIMInitConfig()
-        config.apiAddr = "http://220.173.138.144:10002"
-        config.wsAddr = "ws://220.173.138.144:10001"
-        config.objectStorage = "minio"
-        config.isLogStandardOutput = false
-//        config.dataDir = "/Documents"
-        let initSuccess = OIMManager.manager.initSDK(with: config) {
-            debugPrint("connecting.....")
-        } onConnectFailure: { code, message in
-            debugPrint("code:\(code), message:\(message ?? "")")
-        } onConnectSuccess: { [weak self] in
-            guard let `self` = self else { return }
-            debugPrint("connect Success.")
-            
-        } onKickedOffline: {
-            debugPrint("kicked Offline")
-        } onUserTokenExpired: {
-            debugPrint("user Token expired")
-        }
-
+        let initSuccess = MessageManager.shared.setupMessageManager()
         if initSuccess {
-            self.setupMainController()
+            self.enterTabController()
+            
         }
         return true
     }
@@ -39,14 +21,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     
-    func setupMainController() {
-        let webview = MainWebView.init(url: "http://192.168.31.8:5173/login")
+    func enterTabController() {
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        window?.rootViewController = MainTabBarController.shared
+        window?.makeKeyAndVisible()
+    }
+    
+    func enterLoginController() {
+        let webview = MainWebView.init(url: localDebugIP)
         let nav = UINavigationController(rootVC: webview)
         window = UIWindow.init(frame: UIScreen.main.bounds)
         
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: .easeOut)
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
+//        OpenIMSDK.OIMManager.callbacker.addAdvancedMsgListener(listener: webview)
     }
+    
     
     func setupApplication() {
         /// `TTKit` 全局配置
@@ -60,11 +53,11 @@ extension AppDelegate {
             TTKitConfiguration.Networking.isShowRequestLog = true
             
             /// `Loading`配置
-            TTKitConfiguration.ProgressHUD.containerColor = .color(.black)
+            TTKitConfiguration.ProgressHUD.containerColor = .color(.init(white: 0, alpha: 0.8))
             TTKitConfiguration.ProgressHUD.containerCornerRadius = 16
             
             /// `Toast`配置
-            //            TTKitConfiguration.Toast.bgColor = .color(ThemeGuide.Colors.toastBg)
+            TTKitConfiguration.Toast.bgColor = .color(ThemeGuide.Colors.toastBg)
             
             /// `WebView`配置
             TTKitConfiguration.WebView.progressTint = .themeColor(ThemeGuide.Colors.theme_primary)

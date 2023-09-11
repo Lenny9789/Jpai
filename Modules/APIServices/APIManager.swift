@@ -29,6 +29,35 @@ public struct APIItem: TTAPIProtocol {
     }
 }
 
+public struct APIRTCItem: TTAPIProtocol {
+    public var url: String { kRTCDomain + URLPath }  //域名 + path
+    public let description: String
+    public let extra: String?
+    public var method: TTHTTPMethod
+    public var generalHeaders: [String: String]? //header通用参数
+    
+    private let URLPath: String  // URL的path
+    
+    init(_ path: String, d: String, e: String? = nil, m: TTHTTPMethod = .get) {
+        URLPath = path
+        description = d
+        extra = e
+        method = m
+        generalHeaders = ["platform": "iOS",
+                          "osversion": kSysVersion,
+                          "version": "0.1",
+                          "model": UIDevice.current.model,
+                          "udid": tt_uniqueIdentifier
+        ]
+    }
+    
+    init(_ path: String, m: TTHTTPMethod) {
+        self.init(path, d: "", e: nil, m: m)
+    }
+}
+
+
+
 /// 分页信息
 public struct APIPage {
     /// 分页页码
@@ -57,7 +86,7 @@ public struct API {
         public var checkToken: APIItem { APIItem("/api/user/check_token", d: "token验证", m: .post) }
         public var loginPasswd: APIItem { APIItem("/api/user/login_by_password", d: "密码登录", m: .post) }
         public var changePasswd: APIItem { APIItem("/api/user/change_password", d: "修改密码", m: .post) }
-        public var userInfo: APIItem { APIItem("/api/user/find_info", d: "获取用户信息", m: .post) }
+        public var userInfo: APIItem { APIItem("/api/user/find_info", d: "获取用户信息", m: .get) }
         public var updateInfo: APIItem { APIItem("/api/user/update_info", d: "修改账户信息", m: .post) }
     }
     

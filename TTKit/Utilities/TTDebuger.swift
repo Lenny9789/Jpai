@@ -14,9 +14,9 @@ public class TTDebuger {
                 lines: 1
             )
             if kIsIPhoneX() {
-                _noteLabel!.origin = CGPoint(x: 0, y: 35)
+                _noteLabel!.origin = CGPoint(x: 0, y: kStatusBarHeight)
             } else {
-                _noteLabel!.origin = CGPoint(x: 0, y: 16)
+                _noteLabel!.origin = CGPoint(x: 0, y: kStatusBarHeight)
             }
             _noteLabel!.size = CGSize(width: kScreenWidth, height: 20)
             _noteLabel!.backgroundColor = UIColor(hex: "#000000", alpha: 0.5)

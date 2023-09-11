@@ -3,7 +3,7 @@
 platform :ios, '13.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
-source 'https://github.com/aliyun/aliyun-specs.git'
+#source 'https://github.com/aliyun/aliyun-specs.git'
 
 inhibit_all_warnings!
 
@@ -44,9 +44,10 @@ target 'Jpai' do
   pod 'RxSwift'               #ReactiveX for Swift
   pod 'RxSwiftExt', '~> 6'
   pod 'RxCocoa'               #UI相关的Rx封装
-  pod 'Then'
+  pod 'RxBinding'
+#  pod 'Then'
   pod 'SwifterSwift'
-  pod "RxAnimated"
+#  pod "RxAnimated"
 #  pod "ViewAnimator"
   pod 'SwiftDate', '~> 7.0'   #Swift 日期处理库
   pod 'Alamofire'             #Http请求库
@@ -62,6 +63,7 @@ target 'Jpai' do
   #  pod 'RxDataSources'               #UITableView和UICollectionView的Rx数据源包装
   pod 'WHC_Layout'                  #动态自动布局库
   pod 'SnapKit'
+#  pod 'AudioKit', '~> 4.11.2'       #音频合成、处理和分析库
   pod 'SwiftyUserDefaults', '~> 5.0'
   pod 'SwiftyJSON', '~> 4.0'        #json处理框架
   #  pod 'SexyJson'
@@ -73,13 +75,13 @@ target 'Jpai' do
   #  pod 'WechatOpenSDK-XCFramework'
   #UI组件
 #  pod 'PPBadgeViewSwift'
-  pod 'FSPagerView'
+#  pod 'FSPagerView'
   pod 'Lantern'                           #图片/视频浏览
   pod 'ZLPhotoBrowser', '~> 4.1.7'        #相册多选框架
   #  pod 'JPImageresizerView', '~> 1.3.4'    #裁剪图片、GIF、视频
   #  pod 'lottie-ios'                        #骨骼动画
-  pod 'JXSegmentedView'                   #主流APP分类切换滚动视图
-  pod 'JXPagingView/Paging'
+#  pod 'JXSegmentedView'                   #主流APP分类切换滚动视图
+#  pod 'JXPagingView/Paging'
   #  pod 'GKPageScrollView/Swift'            #UIScrollview嵌套滑动库
   #  pod 'GKPageSmoothView/Swift'            #UIScrollview嵌套滑动库
   pod 'GKNavigationBarSwift'              #自定义导航栏
@@ -87,12 +89,12 @@ target 'Jpai' do
 #  pod 'ActiveLabel'                       #UILabel 替代品，支持 #、@、URL、电子邮件和自定义正则表达式模式
   #  pod 'KDCircularProgress'                #圆形进度条
   pod 'MBProgressHUD', '~> 1.2.0'         #透明指示器
-#  pod 'ZFPlayer', '~> 4.0.3'              #列表视频播放器
-#  pod 'ZFPlayer/ControlView', '~> 4.0.3'  #列表视频播放器
-#  pod 'ZFPlayer/AVPlayer', '~> 4.0.3'     #列表视频播放器
-  #  pod 'KTVHTTPCache'                      #视频缓存
+  pod 'ZFPlayer', '~> 4.0.3'              #列表视频播放器
+  pod 'ZFPlayer/ControlView', '~> 4.0.3'  #列表视频播放器
+  pod 'ZFPlayer/AVPlayer', '~> 4.0.3'     #列表视频播放器
+    pod 'KTVHTTPCache'                      #视频缓存
 
   # Pods for Jpai
   pod 'OpenIMSDK'
-  
+  pod 'AliRTCSdk', '2.5.7'
 end

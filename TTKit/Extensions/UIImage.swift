@@ -19,6 +19,33 @@ extension UIImage {
         guard let cgImage = image?.cgImage else { return nil }
         self.init(cgImage: cgImage)
     }
+    
+    public convenience init?(_ bgColor: UIColor, content: String, width: CGFloat) {
+        let size = CGSize(width: width, height: width)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        let context = UIGraphicsGetCurrentContext()
+        context?.setAllowsAntialiasing(true)
+        bgColor.set()
+        UIRectFill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let fontWidth = width/1.4/2
+        let y = (width - fontWidth*1.3) / 2
+        let font = UIFont.systemFont(ofSize: fontWidth)
+        let attrs = [NSAttributedString.Key.font: font,
+                     NSAttributedString.Key.foregroundColor: UIColor.white]
+        if content.count >= 2 {
+            let subStr: NSString = String(content.suffix(2)) as NSString;
+            let x = (width - subStr.size(withAttributes: attrs).width)/2;
+            subStr.draw(at: CGPoint(x: x, y: y), withAttributes:attrs);
+        }else if content.count == 1 {
+            let x = (width - content.size(withAttributes: attrs).width)/2;
+            content.draw(at: CGPoint(x: x, y: y), withAttributes:attrs);
+        }
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        guard let cgImage = image?.cgImage else { return nil }
+        self.init(cgImage: cgImage)
+    }
 }
 
 extension UIImage {

@@ -5,7 +5,7 @@ import ESPullToRefresh
 
 open class AwesomeRefreshFooterAnimator: UIView, ESRefreshProtocol, ESRefreshAnimatorProtocol {
     
-    public var indicatorStyle: TTIndicatorStyle = .style(.gray) {
+    public var indicatorStyle: TTIndicatorStyle = .style(UIActivityIndicatorView.Style.medium) {
         didSet  {
             switch indicatorStyle {
             case .style(let style):
@@ -24,7 +24,7 @@ open class AwesomeRefreshFooterAnimator: UIView, ESRefreshProtocol, ESRefreshAni
     open var state: ESRefreshViewState = .pullToRefresh
     
     fileprivate let indicatorView: UIActivityIndicatorView = {
-        let indicatorView = UIActivityIndicatorView(style: .gray)
+        let indicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         indicatorView.isHidden = true
         return indicatorView
     }()
