@@ -39,10 +39,14 @@ import Foundation
     case korean
     case malay
     case italian
+    case indonesian
+    case portuguese
+    case spanish
+    case turkish
+    case arabic
 }
 
 public struct ZLLocalLanguageKey: Hashable {
-    
     public let rawValue: String
     
     public init(rawValue: String) {
@@ -64,9 +68,6 @@ public struct ZLLocalLanguageKey: Hashable {
     /// No Photo (无照片)
     public static let noPhotoTips = ZLLocalLanguageKey(rawValue: "noPhotoTips")
     
-    /// loading, waiting please (加载中，请稍后)
-    public static let loading = ZLLocalLanguageKey(rawValue: "loading")
-    
     /// waiting... (正在处理...)
     public static let hudLoading = ZLLocalLanguageKey(rawValue: "hudLoading")
     
@@ -79,7 +80,7 @@ public struct ZLLocalLanguageKey: Hashable {
     /// Request timed out (请求超时)
     public static let timeout = ZLLocalLanguageKey(rawValue: "timeout")
     
-    /// Allow %@ to access your album in \"Settings\"->\"Privacy\"->\"Photos\"
+    /// Please Allow %@ to access your album in \"Settings\"->\"Privacy\"->\"Photos\"
     /// (请在iPhone的\"设置-隐私-照片\"选项中，允许%@访问你的照片)
     public static let noPhotoLibratyAuthority = ZLLocalLanguageKey(rawValue: "noPhotoLibratyAuthority")
     
@@ -118,11 +119,17 @@ public struct ZLLocalLanguageKey: Hashable {
     /// Undo (还原)
     public static let revert = ZLLocalLanguageKey(rawValue: "revert")
     
+    /// Brightness (亮度)
+    public static let brightness = ZLLocalLanguageKey(rawValue: "brightness")
+    
+    /// Contrast (对比度)
+    public static let contrast = ZLLocalLanguageKey(rawValue: "contrast")
+    
+    /// Saturation (饱和度)
+    public static let saturation = ZLLocalLanguageKey(rawValue: "saturation")
+    
     /// Preview (预览)
     public static let preview = ZLLocalLanguageKey(rawValue: "preview")
-    
-    /// Unable to select video (不能同时选择照片和视频)
-    public static let notAllowMixSelect = ZLLocalLanguageKey(rawValue: "notAllowMixSelect")
     
     /// Save (保存)
     public static let save = ZLLocalLanguageKey(rawValue: "save")
@@ -218,7 +225,6 @@ public struct ZLLocalLanguageKey: Hashable {
     
     /// Drag here to remove (拖到此处删除)
     public static let textStickerRemoveTips = ZLLocalLanguageKey(rawValue: "textStickerRemoveTips")
-    
 }
 
 func localLanguageTextValue(_ key: ZLLocalLanguageKey) -> String {

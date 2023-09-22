@@ -50,9 +50,9 @@ target 'Jpai' do
 #  pod "RxAnimated"
 #  pod "ViewAnimator"
   pod 'SwiftDate', '~> 7.0'   #Swift 日期处理库
-  pod 'Alamofire'             #Http请求库
+#  pod 'Alamofire'             #Http请求库
   pod 'Cache'                 #缓存库，可将各种对象以key存储到磁盘，同时可以设置存储的失效期
-  pod 'Kingfisher', '~> 7.0'    #网络图片请求库
+#  pod 'Kingfisher', '~> 7.0'    #网络图片请求库
   pod 'DeviceKit'             #值型替代品UIDevice
   pod "ESPullToRefresh"       #下拉刷新
   pod 'SwiftTheme'            #换肤解决方案
@@ -60,14 +60,16 @@ target 'Jpai' do
   pod "RxGesture"                   #用于视图手势的Rx包装
   pod 'RxKeyboard'                  #响应式的键盘组件
   pod 'WHC_KeyboardManager'
+  pod 'IQKeyboardManagerSwift'
   #  pod 'RxDataSources'               #UITableView和UICollectionView的Rx数据源包装
   pod 'WHC_Layout'                  #动态自动布局库
-  pod 'SnapKit'
+#  pod 'SnapKit'
 #  pod 'AudioKit', '~> 4.11.2'       #音频合成、处理和分析库
   pod 'SwiftyUserDefaults', '~> 5.0'
-  pod 'SwiftyJSON', '~> 4.0'        #json处理框架
+#  pod 'SwiftyJSON', '~> 4.0'        #json处理框架
   #  pod 'SexyJson'
   pod 'CleanJSON'
+#  pod 'NewPopMenu'
   #  pod 'FunWave'
 #  pod 'AliyunOSSiOS'
   #  pod 'AlipaySDK-iOS'
@@ -77,10 +79,10 @@ target 'Jpai' do
 #  pod 'PPBadgeViewSwift'
 #  pod 'FSPagerView'
   pod 'Lantern'                           #图片/视频浏览
-  pod 'ZLPhotoBrowser', '~> 4.1.7'        #相册多选框架
+  pod 'ZLPhotoBrowser', '~> 4.3.0'        #相册多选框架
   #  pod 'JPImageresizerView', '~> 1.3.4'    #裁剪图片、GIF、视频
   #  pod 'lottie-ios'                        #骨骼动画
-#  pod 'JXSegmentedView'                   #主流APP分类切换滚动视图
+  pod 'JXSegmentedView'                   #主流APP分类切换滚动视图
 #  pod 'JXPagingView/Paging'
   #  pod 'GKPageScrollView/Swift'            #UIScrollview嵌套滑动库
   #  pod 'GKPageSmoothView/Swift'            #UIScrollview嵌套滑动库
@@ -95,6 +97,38 @@ target 'Jpai' do
     pod 'KTVHTTPCache'                      #视频缓存
 
   # Pods for Jpai
-  pod 'OpenIMSDK'
+#  pod 'OpenIMSDK', '3.0.0'
   pod 'AliRTCSdk', '2.5.7'
+  
+#  pod 'OUICore', :path => './Applications/Other/OUI/'
+#  pod 'OUICoreView', :path => './Applications/Other/OUI/'
+#  pod 'OUIIM', :path => './Applications/Other/OUI/'
+  
+  # OUI
+  pod 'OpenIMSDK', '3.0.0'
+  pod 'SnapKit', '~> 4.0'
+  pod 'RxSwift', '~> 6.5'
+  pod 'RxCocoa', '~> 6.0'
+  pod 'RxKeyboard', '~> 2.0'
+  pod 'RxDataSources'
+  pod 'Kingfisher', '7.7.0'
+  pod 'lottie-ios', '~> 3.0'
+
+  pod 'ProgressHUD'
+  pod 'IQKeyboardManagerSwift'
+  pod 'Localize-Swift', '~> 3.2'
+  pod 'Alamofire', '5.8.0'#'4.9.1'
+  pod 'SwiftyJSON', '~> 4.0'        #json处理框架
+#  s.dependency 'JXSegmentedView'
+  pod 'MJRefresh'
+#  s.dependency 'RxSwift'
+  pod 'RxRelay'
+#  s.dependency 'SnapKit'
+  pod 'DifferenceKit'
+  pod 'ChatLayout'
+  pod 'InputBarAccessoryView'
+  
+  pod 'AWSS3'
+#  pod 'AmplifyPlugins/AWSS3StoragePlugin'
+#  pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
 end

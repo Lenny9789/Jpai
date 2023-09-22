@@ -71,10 +71,25 @@ NS_ASSUME_NONNULL_BEGIN
  * 当对方阅读了消息 onRecvC2CReadReceipt，通过回调将已读的消息更改状态。
  * 新增消息 onRecvNewMessage，向界面添加消息
  */
-- (void)setAdvancedMsgListenerWithOnRecvMessageRevoked:(OIMRevokedCallback)onRecvMessageRevoked
+- (void)setAdvancedMsgListenerWithOnRecvMessageRevoked:(OIMStringCallback)onRecvMessageRevoked
                                   onRecvC2CReadReceipt:(OIMReceiptCallback)onRecvC2CReadReceipt
                                 onRecvGroupReadReceipt:(OIMReceiptCallback)onRecvGroupReadReceipt
                                       onRecvNewMessage:(OIMMessageInfoCallback)onRecvNewMessage;
+
+- (void)setAdvancedMsgListenerWithOnRecvMessageRevoked:(nullable OIMStringCallback)onRecvMessageRevoked
+                                  onRecvC2CReadReceipt:(OIMReceiptCallback)onRecvC2CReadReceipt
+                                onRecvGroupReadReceipt:(nullable OIMReceiptCallback)onRecvGroupReadReceipt
+                                      onRecvNewMessage:(OIMMessageInfoCallback)onRecvNewMessage
+                               onNewRecvMessageRevoked:(nullable OIMRevokedCallback)onNewRecvMessageRevoked;
+
+- (void)setAdvancedMsgListenerWithOnRecvMessageRevoked:(nullable OIMStringCallback)onRecvMessageRevoked
+                                  onRecvC2CReadReceipt:(OIMReceiptCallback)onRecvC2CReadReceipt
+                                onRecvGroupReadReceipt:(OIMReceiptCallback)onRecvGroupReadReceipt
+                                      onRecvNewMessage:(OIMMessageInfoCallback)onRecvNewMessage
+                               onNewRecvMessageRevoked:(nullable OIMRevokedCallback)onNewRecvMessageRevoked
+                        onRecvMessageExtensionsChanged:(nullable OIMKeyValueResultCallback)onRecvMessageExtensionsChanged
+                        onRecvMessageExtensionsDeleted:(nullable OIMStringArrayCallback)onRecvMessageExtensionsDeleted
+                          onRecvMessageExtensionsAdded:(nullable OIMKeyValueResultCallback)onRecvMessageExtensionsAdded;
 
 /*
  * 用户信息监听
@@ -82,14 +97,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setSelfUserInfoUpdateListener:(OIMUserInfoCallback)onUserInfoUpdate;
 
-- (void)setSelfUserInfoUpdateListenerWithUserInfoUpdate:(OIMUserInfoCallback)onUserInfoUpdate
-                                    onUserStatusChanged:(nullable OIMUserStatusInfoCallback)onUserStatusChanged;
-
 /*
  * 自定义消息
  *
  */
-- (void)setRecvCustomBusinessMessageListener:(OIMObjectCallback)onRecvCustomBusinessMessage;
+- (void)setRecvCustomBusinessMessageListener:(OIMStringCallback)onRecvCustomBusinessMessage;
 @end
 
 NS_ASSUME_NONNULL_END

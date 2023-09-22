@@ -139,10 +139,30 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.file` struct is generated, and contains static references to 1 files.
+  /// This `R.file` struct is generated, and contains static references to 5 files.
   struct file {
+    /// Resource file `OIMUIEmoji.bundle`.
+    static let oimuiEmojiBundle = Rswift.FileResource(bundle: R.hostingBundle, name: "OIMUIEmoji", pathExtension: "bundle")
+    /// Resource file `OIMUIResource.bundle`.
+    static let oimuiResourceBundle = Rswift.FileResource(bundle: R.hostingBundle, name: "OIMUIResource", pathExtension: "bundle")
     /// Resource file `TToast.bundle`.
     static let tToastBundle = Rswift.FileResource(bundle: R.hostingBundle, name: "TToast", pathExtension: "bundle")
+    /// Resource file `call_ring.mp3`.
+    static let call_ringMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "call_ring", pathExtension: "mp3")
+    /// Resource file `dist`.
+    static let dist = Rswift.FileResource(bundle: R.hostingBundle, name: "dist", pathExtension: "")
+
+    /// `bundle.url(forResource: "OIMUIEmoji", withExtension: "bundle")`
+    static func oimuiEmojiBundle(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.oimuiEmojiBundle
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "OIMUIResource", withExtension: "bundle")`
+    static func oimuiResourceBundle(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.oimuiResourceBundle
+      return fileResource.bundle.url(forResource: fileResource)
+    }
 
     /// `bundle.url(forResource: "TToast", withExtension: "bundle")`
     static func tToastBundle(_: Void = ()) -> Foundation.URL? {
@@ -150,25 +170,43 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
 
+    /// `bundle.url(forResource: "call_ring", withExtension: "mp3")`
+    static func call_ringMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.call_ringMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "dist", withExtension: "")`
+    static func dist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.dist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 34 images.
+  /// This `R.image` struct is generated, and contains static references to 49 images.
   struct image {
     /// Image `ScanLine`.
     static let scanLine = Rswift.ImageResource(bundle: R.hostingBundle, name: "ScanLine")
     /// Image `ScanNet`.
     static let scanNet = Rswift.ImageResource(bundle: R.hostingBundle, name: "ScanNet")
+    /// Image `accountsettings`.
+    static let accountsettings = Rswift.ImageResource(bundle: R.hostingBundle, name: "accountsettings")
+    /// Image `add_scan_icon`.
+    static let add_scan_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "add_scan_icon")
+    /// Image `arrow.left`.
+    static let arrowLeft = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrow.left")
+    /// Image `bag.select`.
+    static let bagSelect = Rswift.ImageResource(bundle: R.hostingBundle, name: "bag.select")
+    /// Image `bag.unselect`.
+    static let bagUnselect = Rswift.ImageResource(bundle: R.hostingBundle, name: "bag.unselect")
     /// Image `chating_footer_add`.
     static let chating_footer_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "chating_footer_add")
     /// Image `chating_footer_audio`.
     static let chating_footer_audio = Rswift.ImageResource(bundle: R.hostingBundle, name: "chating_footer_audio")
     /// Image `chating_footer_emoji`.
     static let chating_footer_emoji = Rswift.ImageResource(bundle: R.hostingBundle, name: "chating_footer_emoji")
-    /// Image `chatroom_msg_receiver_bubble_normal`.
-    static let chatroom_msg_receiver_bubble_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_receiver_bubble_normal")
-    /// Image `chatroom_msg_receiver_bubble_pressed`.
-    static let chatroom_msg_receiver_bubble_pressed = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_receiver_bubble_pressed")
     /// Image `chatroom_msg_receiver_voice_play_1`.
     static let chatroom_msg_receiver_voice_play_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_receiver_voice_play_1")
     /// Image `chatroom_msg_receiver_voice_play_2`.
@@ -177,10 +215,6 @@ struct R: Rswift.Validatable {
     static let chatroom_msg_receiver_voice_play_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_receiver_voice_play_3")
     /// Image `chatroom_msg_receiver_voice`.
     static let chatroom_msg_receiver_voice = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_receiver_voice")
-    /// Image `chatroom_msg_sender_bubble_normal`.
-    static let chatroom_msg_sender_bubble_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_sender_bubble_normal")
-    /// Image `chatroom_msg_sender_bubble_pressed`.
-    static let chatroom_msg_sender_bubble_pressed = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_sender_bubble_pressed")
     /// Image `chatroom_msg_sender_voice_play_1`.
     static let chatroom_msg_sender_voice_play_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_sender_voice_play_1")
     /// Image `chatroom_msg_sender_voice_play_2`.
@@ -193,36 +227,64 @@ struct R: Rswift.Validatable {
     static let chatroom_msg_state_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_state_error")
     /// Image `comment_close_btn`.
     static let comment_close_btn = Rswift.ImageResource(bundle: R.hostingBundle, name: "comment_close_btn")
+    /// Image `common_call`.
+    static let common_call = Rswift.ImageResource(bundle: R.hostingBundle, name: "common_call")
+    /// Image `common_circle_add`.
+    static let common_circle_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "common_circle_add")
+    /// Image `common_more_btn_icon`.
+    static let common_more_btn_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "common_more_btn_icon")
+    /// Image `common_qrcode_icon`.
+    static let common_qrcode_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "common_qrcode_icon")
+    /// Image `contact.select`.
+    static let contactSelect = Rswift.ImageResource(bundle: R.hostingBundle, name: "contact.select")
+    /// Image `contact.unselect`.
+    static let contactUnselect = Rswift.ImageResource(bundle: R.hostingBundle, name: "contact.unselect")
+    /// Image `contact_add_icon`.
+    static let contact_add_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "contact_add_icon")
+    /// Image `contact_my_friend_icon`.
+    static let contact_my_friend_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "contact_my_friend_icon")
+    /// Image `contact_my_group_icon`.
+    static let contact_my_group_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "contact_my_group_icon")
+    /// Image `contact_new_friend_icon`.
+    static let contact_new_friend_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "contact_new_friend_icon")
+    /// Image `contact_new_group_icon`.
+    static let contact_new_group_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "contact_new_group_icon")
     /// Image `flashOff`.
     static let flashOff = Rswift.ImageResource(bundle: R.hostingBundle, name: "flashOff")
     /// Image `flashOn`.
     static let flashOn = Rswift.ImageResource(bundle: R.hostingBundle, name: "flashOn")
     /// Image `icon_back`.
     static let icon_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_back")
+    /// Image `info.square`.
+    static let infoSquare = Rswift.ImageResource(bundle: R.hostingBundle, name: "info.square")
     /// Image `memorial_navbar_dismiss`.
     static let memorial_navbar_dismiss = Rswift.ImageResource(bundle: R.hostingBundle, name: "memorial_navbar_dismiss")
     /// Image `memorial_toolbar_pause`.
     static let memorial_toolbar_pause = Rswift.ImageResource(bundle: R.hostingBundle, name: "memorial_toolbar_pause")
     /// Image `memorial_toolbar_play`.
     static let memorial_toolbar_play = Rswift.ImageResource(bundle: R.hostingBundle, name: "memorial_toolbar_play")
+    /// Image `message.select`.
+    static let messageSelect = Rswift.ImageResource(bundle: R.hostingBundle, name: "message.select")
+    /// Image `message.unselect`.
+    static let messageUnselect = Rswift.ImageResource(bundle: R.hostingBundle, name: "message.unselect")
     /// Image `message_nav_back`.
     static let message_nav_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "message_nav_back")
-    /// Image `tabbar_contact_normal`.
-    static let tabbar_contact_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabbar_contact_normal")
-    /// Image `tabbar_contact_selected`.
-    static let tabbar_contact_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabbar_contact_selected")
-    /// Image `tabbar_message_normal`.
-    static let tabbar_message_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabbar_message_normal")
-    /// Image `tabbar_message_selected`.
-    static let tabbar_message_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabbar_message_selected")
-    /// Image `tabbar_profile_normal`.
-    static let tabbar_profile_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabbar_profile_normal")
-    /// Image `tabbar_profile_selected`.
-    static let tabbar_profile_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "tabbar_profile_selected")
-    /// Image `tongxunlu2`.
-    static let tongxunlu2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "tongxunlu2")
-    /// Image `tongxunlu`.
-    static let tongxunlu = Rswift.ImageResource(bundle: R.hostingBundle, name: "tongxunlu")
+    /// Image `mine.about`.
+    static let mineAbout = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine.about")
+    /// Image `mine.exit`.
+    static let mineExit = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine.exit")
+    /// Image `mine.safe`.
+    static let mineSafe = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine.safe")
+    /// Image `person.fill`.
+    static let personFill = Rswift.ImageResource(bundle: R.hostingBundle, name: "person.fill")
+    /// Image `person`.
+    static let person = Rswift.ImageResource(bundle: R.hostingBundle, name: "person")
+    /// Image `phone.arrow.highlight`.
+    static let phoneArrowHighlight = Rswift.ImageResource(bundle: R.hostingBundle, name: "phone.arrow.highlight")
+    /// Image `phone.arrow.normal`.
+    static let phoneArrowNormal = Rswift.ImageResource(bundle: R.hostingBundle, name: "phone.arrow.normal")
+    /// Image `wallet.pass`.
+    static let walletPass = Rswift.ImageResource(bundle: R.hostingBundle, name: "wallet.pass")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ScanLine", bundle: ..., traitCollection: ...)`
@@ -235,6 +297,41 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ScanNet", bundle: ..., traitCollection: ...)`
     static func scanNet(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.scanNet, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "accountsettings", bundle: ..., traitCollection: ...)`
+    static func accountsettings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.accountsettings, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "add_scan_icon", bundle: ..., traitCollection: ...)`
+    static func add_scan_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.add_scan_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "arrow.left", bundle: ..., traitCollection: ...)`
+    static func arrowLeft(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.arrowLeft, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bag.select", bundle: ..., traitCollection: ...)`
+    static func bagSelect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bagSelect, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bag.unselect", bundle: ..., traitCollection: ...)`
+    static func bagUnselect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bagUnselect, compatibleWith: traitCollection)
     }
     #endif
 
@@ -256,20 +353,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "chating_footer_emoji", bundle: ..., traitCollection: ...)`
     static func chating_footer_emoji(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.chating_footer_emoji, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "chatroom_msg_receiver_bubble_normal", bundle: ..., traitCollection: ...)`
-    static func chatroom_msg_receiver_bubble_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.chatroom_msg_receiver_bubble_normal, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "chatroom_msg_receiver_bubble_pressed", bundle: ..., traitCollection: ...)`
-    static func chatroom_msg_receiver_bubble_pressed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.chatroom_msg_receiver_bubble_pressed, compatibleWith: traitCollection)
     }
     #endif
 
@@ -298,20 +381,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "chatroom_msg_receiver_voice_play_3", bundle: ..., traitCollection: ...)`
     static func chatroom_msg_receiver_voice_play_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.chatroom_msg_receiver_voice_play_3, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "chatroom_msg_sender_bubble_normal", bundle: ..., traitCollection: ...)`
-    static func chatroom_msg_sender_bubble_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.chatroom_msg_sender_bubble_normal, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "chatroom_msg_sender_bubble_pressed", bundle: ..., traitCollection: ...)`
-    static func chatroom_msg_sender_bubble_pressed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.chatroom_msg_sender_bubble_pressed, compatibleWith: traitCollection)
     }
     #endif
 
@@ -358,6 +427,83 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "common_call", bundle: ..., traitCollection: ...)`
+    static func common_call(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.common_call, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "common_circle_add", bundle: ..., traitCollection: ...)`
+    static func common_circle_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.common_circle_add, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "common_more_btn_icon", bundle: ..., traitCollection: ...)`
+    static func common_more_btn_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.common_more_btn_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "common_qrcode_icon", bundle: ..., traitCollection: ...)`
+    static func common_qrcode_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.common_qrcode_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "contact.select", bundle: ..., traitCollection: ...)`
+    static func contactSelect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.contactSelect, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "contact.unselect", bundle: ..., traitCollection: ...)`
+    static func contactUnselect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.contactUnselect, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "contact_add_icon", bundle: ..., traitCollection: ...)`
+    static func contact_add_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.contact_add_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "contact_my_friend_icon", bundle: ..., traitCollection: ...)`
+    static func contact_my_friend_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.contact_my_friend_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "contact_my_group_icon", bundle: ..., traitCollection: ...)`
+    static func contact_my_group_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.contact_my_group_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "contact_new_friend_icon", bundle: ..., traitCollection: ...)`
+    static func contact_new_friend_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.contact_new_friend_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "contact_new_group_icon", bundle: ..., traitCollection: ...)`
+    static func contact_new_group_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.contact_new_group_icon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "flashOff", bundle: ..., traitCollection: ...)`
     static func flashOff(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.flashOff, compatibleWith: traitCollection)
@@ -375,6 +521,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_back", bundle: ..., traitCollection: ...)`
     static func icon_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_back, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "info.square", bundle: ..., traitCollection: ...)`
+    static func infoSquare(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.infoSquare, compatibleWith: traitCollection)
     }
     #endif
 
@@ -400,6 +553,20 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "message.select", bundle: ..., traitCollection: ...)`
+    static func messageSelect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.messageSelect, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "message.unselect", bundle: ..., traitCollection: ...)`
+    static func messageUnselect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.messageUnselect, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "message_nav_back", bundle: ..., traitCollection: ...)`
     static func message_nav_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.message_nav_back, compatibleWith: traitCollection)
@@ -407,58 +574,58 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tabbar_contact_normal", bundle: ..., traitCollection: ...)`
-    static func tabbar_contact_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tabbar_contact_normal, compatibleWith: traitCollection)
+    /// `UIImage(named: "mine.about", bundle: ..., traitCollection: ...)`
+    static func mineAbout(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.mineAbout, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tabbar_contact_selected", bundle: ..., traitCollection: ...)`
-    static func tabbar_contact_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tabbar_contact_selected, compatibleWith: traitCollection)
+    /// `UIImage(named: "mine.exit", bundle: ..., traitCollection: ...)`
+    static func mineExit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.mineExit, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tabbar_message_normal", bundle: ..., traitCollection: ...)`
-    static func tabbar_message_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tabbar_message_normal, compatibleWith: traitCollection)
+    /// `UIImage(named: "mine.safe", bundle: ..., traitCollection: ...)`
+    static func mineSafe(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.mineSafe, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tabbar_message_selected", bundle: ..., traitCollection: ...)`
-    static func tabbar_message_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tabbar_message_selected, compatibleWith: traitCollection)
+    /// `UIImage(named: "person", bundle: ..., traitCollection: ...)`
+    static func person(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.person, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tabbar_profile_normal", bundle: ..., traitCollection: ...)`
-    static func tabbar_profile_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tabbar_profile_normal, compatibleWith: traitCollection)
+    /// `UIImage(named: "person.fill", bundle: ..., traitCollection: ...)`
+    static func personFill(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.personFill, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tabbar_profile_selected", bundle: ..., traitCollection: ...)`
-    static func tabbar_profile_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tabbar_profile_selected, compatibleWith: traitCollection)
+    /// `UIImage(named: "phone.arrow.highlight", bundle: ..., traitCollection: ...)`
+    static func phoneArrowHighlight(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.phoneArrowHighlight, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tongxunlu", bundle: ..., traitCollection: ...)`
-    static func tongxunlu(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tongxunlu, compatibleWith: traitCollection)
+    /// `UIImage(named: "phone.arrow.normal", bundle: ..., traitCollection: ...)`
+    static func phoneArrowNormal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.phoneArrowNormal, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "tongxunlu2", bundle: ..., traitCollection: ...)`
-    static func tongxunlu2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.tongxunlu2, compatibleWith: traitCollection)
+    /// `UIImage(named: "wallet.pass", bundle: ..., traitCollection: ...)`
+    static func walletPass(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.walletPass, compatibleWith: traitCollection)
     }
     #endif
 

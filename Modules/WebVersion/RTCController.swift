@@ -43,6 +43,8 @@ class RTCController: UIViewController {
         return label
     }()
     
+    var isCaller = false
+    var remoteJoined = false
     var countTimer: Timer?
     var counter: Int = 0
     
@@ -87,6 +89,8 @@ class RTCController: UIViewController {
         
         view.bringSubviewToFront(buttonRefuse)
         view.bringSubviewToFront(buttonAccept)
+        
+        buttonAccept.isHidden = isCaller
     }
     
     private func setupBindings() {
@@ -103,33 +107,50 @@ class RTCController: UIViewController {
             
             self.refuseAction()
         }.disposed(by: disposeBag)
+        
+        if isCaller {
+            joinChannal()
+        }
     }
     
     private func refuseAction() {
-        if self.rtcEngine.isInCall() {
+        if isCaller {
             rtcEngine.stopPreview()
             rtcEngine.leaveChannel()
             navigationController?.popViewController(animated: true)
-        }else {
-            let param: Param = ["type": "hang_up", "room": rtcData["room"].stringValue]
+            //发送通话状态
+            let param: Param = ["type": "hang_upfadf3fadf4561fas4d5", "room": rtcData["room"].stringValue]
             let str = try? param.jsonString(using: .utf8, options: .init(rawValue: 0))
-            let message = OIMMessageInfo.createCustomMessage(str ?? "", extension: "{}", description: "[通话]")
-            let off = OIMOfflinePushInfo()
-            off.title = "您收到一个通话"
-            off.desc = ""
-            off.iOSBadgeCount = true
-            OIMManager.manager.sendMessage(message, recvID: recvMessage.sendID, groupID: "", offlinePushInfo: off) { [weak self] message in
-                guard let `self` = self else { return }
-                debugPrintS(message)
-                
-            } onProgress: { progres in
-                debugPrint("progres:\(progres)")
-            } onFailure: { code, msg in
-                debugPrintS("code:\(code), error:\(msg ?? "")")
+            OIMManager.manager.typingStatusUpdate(rtcData["oppositeUserId"].stringValue, msgTip: str ?? "") { _ in}
+            
+            if remoteJoined {
+                //发送自定义通话消息-->在通话中主叫挂断
+                let p: Param = ["type": "call_over",
+                                "msg": "[通话时间]: \(String(format: "%02d", counter/60)):\(String(format: "%02d", counter%60))",
+                                "room": rtcData["room"].stringValue]
+                MessageManager.shared.sendCustomMessage(param: p, recvID: rtcData["oppositeUserId"].stringValue)
+            }else {
+                //发送自定义通话消息--> 未进入通话主叫挂断
+                let p: Param = ["type": "hang_up",
+                                "status": 8,
+                                "room": rtcData["room"].stringValue]
+                MessageManager.shared.sendCustomMessage(param: p, recvID: rtcData["oppositeUserId"].stringValue)
             }
-            self.navigationController?.popViewController(animated: true)
+        }else {
+            if self.rtcEngine.isInCall() {
+                rtcEngine.stopPreview()
+                rtcEngine.leaveChannel()
+                navigationController?.popViewController(animated: true)
+                
+            }else {
+                let param: Param = ["type": "hang_upfadf3fadf4561fas4d5", "room": rtcData["room"].stringValue]
+                let str = try? param.jsonString(using: .utf8, options: .init(rawValue: 0))
+                OIMManager.manager.typingStatusUpdate(recvMessage.sendID ?? "", msgTip: str ?? "") { _ in }
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
+    
     func startPreView() {
         let canvas = AliVideoCanvas()
         canvas.renderMode = .auto
@@ -175,7 +196,9 @@ class RTCController: UIViewController {
                 TToast.show("加入频道失败！")
                 return
             }
-            self.joinChannelSuccessSetupViews()
+            if !self.isCaller {
+                self.joinChannelSuccessSetupViews()
+            }
         }
     }
 }
@@ -202,6 +225,10 @@ extension RTCController: AliRtcEngineDelegate {
     //远端用户接听回调
     func onRemoteUser(onLineNotify uid: String, elapsed: Int32) {
         debugPrint(uid)
+        if self.isCaller {
+            remoteJoined = true
+            self.joinChannelSuccessSetupViews()
+        }
     }
     
     //远端用户挂掉
@@ -212,5 +239,13 @@ extension RTCController: AliRtcEngineDelegate {
         rtcEngine = nil
         
         navigationController?.popViewController(animated: true)
+        
+        if isCaller {
+            //发送自定义通话消息-->在通话中挂断
+            let p: Param = ["type": "call_over",
+                            "msg": "[通话时间]: \(String(format: "%02d", counter/60)):\(String(format: "%02d", counter%60))",
+                            "room": rtcData["room"].stringValue]
+            MessageManager.shared.sendCustomMessage(param: p, recvID: rtcData["oppositeUserId"].stringValue)
+        }
     }
 }

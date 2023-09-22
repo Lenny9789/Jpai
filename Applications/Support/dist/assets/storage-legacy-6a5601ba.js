@@ -1,0 +1,1 @@
+System.register([],(function(e,t){"use strict";return{execute:function(){e("s",((e,t,a)=>{var o;o=t,localStorage.setItem("IM_TOKEN",o),(e=>{localStorage.setItem("IM_CHAT_TOKEN",e)})(e),(e=>{localStorage.setItem("IM_USERID",e)})(a)})),e("g",(()=>localStorage.getItem("IM_TOKEN"))),e("a",(()=>localStorage.getItem("IM_USERID")))}}}));

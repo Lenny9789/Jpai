@@ -379,8 +379,8 @@ extension String {
     static var localized_rankList : String { return "rankList".localized }
     // MARK: 我的 > 个人主页 > 编辑资料
     static var localized_addBanner : String { return "addBanner".localized }
-    static var localized_nickName : String { return "nickName".localized }
-    static var localized_nickNameMaxSevenWords : String { return "nickNameMaxSevenWords".localized }
+    static var localized_NickName : String { return "NickName".localized }
+    static var localized_NickNameMaxSevenWords : String { return "NickNameMaxSevenWords".localized }
     static var localized_birthday : String { return "birthday".localized }
     static var localized_selectBirthday : String { return "selectBirthday".localized }
     static var localized_noEighteenAge : String { return "noEighteenAge".localized }
@@ -738,7 +738,7 @@ extension String {
     static var localized_serviceTerm : String { return "serviceTerm".localized }
     static var localized_privacyPolicy : String { return "privacyPolicy".localized }
     static var localized_birthdayWarning : String { return "birthdayWarning".localized }
-    static var localized_nicknameInvalid : String { return "nicknameInvalid".localized }
+    static var localized_nickNameInvalid : String { return "nickNameInvalid".localized }
     static var localized_phoneInvalid : String { return "phoneInvalid".localized }
     static var localized_emailInvalid : String { return "emailInvalid".localized }
     static var localized_passwordLengthMinPre : String { return "passwordLengthMinPre".localized }

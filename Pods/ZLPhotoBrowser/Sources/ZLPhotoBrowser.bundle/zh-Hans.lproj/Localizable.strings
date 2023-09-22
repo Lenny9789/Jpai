@@ -11,14 +11,15 @@
 "back" = "返回";
 "edit" = "编辑";
 "revert" = "还原";
+"brightness" = "亮度";
+"contrast" = "对比度";
+"saturation" = "饱和度";
 
 "photo" = "照片";
 "preview" = "预览";
 
 "noPhotoTips" = "无照片";
-"notAllowMixSelect" = "不能同时选择照片和视频";
 
-"loading" = "加载中，请稍后";
 "hudLoading" = "正在处理...";
 
 "exceededMaxSelectCount" = "最多只能选择%ld张图片";

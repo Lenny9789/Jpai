@@ -21,6 +21,7 @@
 #import "OIMSearchResultInfo.h"
 #import "OIMSimpleResultInfo.h"
 #import "OIMSimpleRequstInfo.h"
+#import "OIMSignalingInfo.h"
 #import "OIMDepartmentInfo.h"
 
 @import OpenIMCore;
@@ -37,7 +38,6 @@ typedef void (^OIMUsersCallback)(NSArray <OIMFullUserInfo *> * _Nullable userInf
 typedef void (^OIMFullUserInfoCallback)(OIMFullUserInfo * _Nullable userInfo);
 typedef void (^OIMFullUsersInfoCallback)(NSArray <OIMFullUserInfo *> * _Nullable userInfos);
 typedef void (^OIMBlacksInfoCallback)(NSArray <OIMBlackInfo *> * _Nullable blackInfos);
-typedef void (^OIMUserStatusInfoCallback)(OIMUserStatusInfo * _Nullable statusInfo);
 
 typedef void (^OIMFriendApplicationCallback)(OIMFriendApplication * _Nullable friendApplication);
 typedef void (^OIMFriendApplicationsCallback)(NSArray <OIMFriendApplication *> * _Nullable friendApplications);
@@ -66,8 +66,20 @@ typedef void (^OIMMessageSearchCallback)(OIMSearchResultInfo * _Nullable result)
 typedef void (^OIMReceiptCallback)(NSArray <OIMReceiptInfo *> * _Nullable msgReceiptList);
 typedef void (^OIMRevokedCallback)(OIMMessageRevokedInfo * _Nullable msgRovoked);
 
-typedef void (^OIMGetAdvancedHistoryMessageListCallback)(OIMGetAdvancedHistoryMessageListInfo * _Nullable result);
+typedef void (^OIMSignalingInvitationCallback)(OIMSignalingInfo * _Nullable result);
+typedef void (^OIMSignalingResultCallback)(OIMInvitationResultInfo * _Nullable result);
+typedef void (^OIMSignalingParticipantChangeCallback)(OIMParticipantConnectedInfo * _Nullable result);
+typedef void (^OIMSignalingMeetingsInfoCallback)(OIMMeetingInfoList * _Nullable result);
+typedef void (^OIMSignalingMeetingStreamEventCallback)(OIMMeetingStreamEvent * _Nullable result);
 
+typedef void (^OIMDepartmentInfoCallback)(NSArray <OIMDepartmentInfo *> * _Nullable departmentList);
+typedef void (^OIMDepartmentMembersInfoCallback)(NSArray <OIMDepartmentMemberInfo *> * _Nullable members);
+typedef void (^OIMUserInDepartmentInfoCallback)(NSArray <OIMUserInDepartmentInfo *> * _Nullable members);
+typedef void (^OIMDepartmentMemberAndSubInfoCallback)(OIMDepartmentMemberAndSubInfo * _Nullable items);
+
+typedef void (^OIMGetAdvancedHistoryMessageListCallback)(OIMGetAdvancedHistoryMessageListInfo * _Nullable result);
+typedef void (^OIMKeyValueResultCallback)(NSString * _Nullable msgID, NSArray <OIMKeyValue *> * _Nullable result);
+typedef void (^OIMKeyValuesResultCallback)(NSArray <OIMKeyValues *> * _Nullable result);
 /// IMSDK 主核心回调
 @protocol OIMSDKListener <NSObject>
 @optional
@@ -267,7 +279,9 @@ typedef void (^OIMGetAdvancedHistoryMessageListCallback)(OIMGetAdvancedHistoryMe
 /*
  *  收到消息撤回
  */
-- (void)onRecvMessageRevoked:(OIMMessageRevokedInfo *)messageRevoked;
+- (void)onRecvMessageRevoked:(NSString *)msgID;
+
+- (void)onNewRecvMessageRevoked:(OIMMessageRevokedInfo *)messageRevoked;
 
 - (void)onRecvMessageExtensionsAdded:(NSString *)msgID reactionExtensionList:(NSArray<OIMKeyValue *> *)reactionExtensionList;
 
@@ -324,7 +338,6 @@ Open_im_sdk_callbackOnCustomBusinessListener
 /// 用户监听
 /// 在InitSDK成功后，Login之前设置，本登录用户个人资料有变化时回调
 @property (nonatomic, nullable, copy) OIMUserInfoCallback onSelfInfoUpdated;
-@property (nonatomic, nullable, copy) OIMUserStatusInfoCallback onUserStatusChanged;
 
 /// 好友监听
 /// 在InitSDK成功后，Login之前设置，好友相关信息有变化时回调
@@ -396,7 +409,11 @@ Open_im_sdk_callbackOnCustomBusinessListener
 @property (nonatomic, nullable, copy) OIMMessageInfoCallback onRecvNewMessage;
 @property (nonatomic, nullable, copy) OIMReceiptCallback onRecvC2CReadReceipt;
 @property (nonatomic, nullable, copy) OIMReceiptCallback onRecvGroupReadReceipt;
-@property (nonatomic, nullable, copy) OIMRevokedCallback onRecvMessageRevoked;
+@property (nonatomic, nullable, copy) OIMStringCallback onRecvMessageRevoked;
+@property (nonatomic, nullable, copy) OIMRevokedCallback onNewRecvMessageRevoked;
+@property (nonatomic, nullable, copy) OIMKeyValueResultCallback onRecvMessageExtensionsChanged;
+@property (nonatomic, nullable, copy) OIMStringArrayCallback onRecvMessageExtensionsDeleted;
+@property (nonatomic, nullable, copy) OIMKeyValueResultCallback onRecvMessageExtensionsAdded;
 @property (nonatomic, nullable, copy) OIMMessageInfoCallback onMessageDeleted;
 /*
  *  添加高级消息的事件监听器

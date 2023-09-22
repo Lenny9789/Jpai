@@ -13,8 +13,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let initSuccess = MessageManager.shared.setupMessageManager()
         if initSuccess {
             self.enterTabController()
-            
+
         }
+        
+        // 初始化SDK
+//        IMController.shared.setup(sdkAPIAdrr: kApiAddress,
+//                                  sdkWSAddr: kWsAddress,
+//                                  sdkOS: "minio") {
+//            IMController.shared.currentUserRelay.accept(nil)
+////            AccountViewModel.saveUser(uid: nil, imToken: nil, chatToken: nil)
+////            NotificationCenter.default.post(name: .init("logout"), object: nil)
+//        }
+//        enterTabController()
         return true
     }
 }

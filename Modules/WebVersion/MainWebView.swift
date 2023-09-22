@@ -14,8 +14,9 @@ open class MainWebView: TTViewController, WKUIDelegate, WKNavigationDelegate {
         
         user.add(self, name: "send2iOSApi")
 //        user.add(self, name: "console")
+        user.add(self, name: "jumpActivity")
 //        user.addUserScript(WKUserScript(source: "console.log = function(message) { window.webkit.messageHandlers.console.postMessage(message); }", injectionTime: .atDocumentStart, forMainFrameOnly: true))
-//        user.add(self, name: "androidApi")
+        user.add(self, name: "androidApi")
         let conf = WKWebViewConfiguration()
         conf.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         conf.userContentController = user
@@ -85,23 +86,26 @@ open class MainWebView: TTViewController, WKUIDelegate, WKNavigationDelegate {
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        loadRequest(urlStr: self.url)
+        if url != nil {
+            loadRequest(urlStr: self.url)
+        }
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = true
+
+        if isShop {
+            loadLocals()
+            webView.evaluateJavaScript("window.location.href='index.html#/shop'")
+        }
+        if isPayment {
+            tabBarController?.tabBar.isHidden = true
+        }
     }
     
     private func setupViews() {
         gk_navigationBar.isHidden = true
-        gk_statusBarHidden = true
         
-//        view.addSubview(textF)
-//        textF.whc_Top(kStatusBarHeight)
-//            .whc_Left(0 )
-//            .whc_Height(44)
-//            .whc_Right(100)
         view.addSubview(webView)
         view.addSubview(progressView)
         webView.whc_AutoSize(left: 0, top: kStatusBarHeight, right: 0, bottom: 0)
@@ -110,40 +114,27 @@ open class MainWebView: TTViewController, WKUIDelegate, WKNavigationDelegate {
             .whc_Right(0)
             .whc_Height(2)
         
-        webView.addSubview(buttonRefresh)
-//        button.size = CGSize(width: 100, height: 44)
-//        gk_navRightBarButtonItem = UIBarButtonItem(customView: button)
-        buttonRefresh.whc_Right(0)
-            .whc_Width(100)
-            .whc_Height(44)
-            .whc_Top(300)
-        
-        buttonRefresh.rx.tap.subscribe { [weak self] _ in
-            guard let `self` = self else { return }
+
+        if isPayment {
+            webView.whc_RemoveAttrs(.top)
+                .whc_Top(kStatusAndNavBarHeight)
+            progressView.whc_RemoveAttrs(.top)
+                .whc_Top(kStatusAndNavBarHeight)
             
-            self.webView.reload()
-        }.disposed(by: disposebag)
+            gk_navigationBar.isHidden = false
+            gk_statusBarHidden = false
+        }
         
-//        webView.addSubview(buttonExit)
-//        buttonExit.whc_Right(0)
-//            .whc_Width(100)
-//            .whc_Height(44)
-//            .whc_Top(344)
-//        
-//        buttonExit.rx.tap.subscribe { [weak self] _ in
-//            guard let `self` = self else { return }
-//            
-//            self.loginOut("")
-//        }.disposed(by: disposebag)
-        
-        view.addSubview(recordingView)
-        recordingView.whc_Top(0, toView: webView)
-            .whc_Right(0)
-            .whc_Left(0)
-            .whc_Height(45 + kSafeAreaBottomHeight())
+        NotificationCenter.default.rx.notification(TTNotifyName.App.OIMSDKLoginSuccess)
+            .subscribe { [weak self] _ in
+                guard let `self` = self else { return }
+                guard self.isShop else { return }
+                
+                self.webView.reload()
+            }.disposed(by: disposeBag)
     }
     
-    private func loadRequest(urlStr:String) {
+    func loadRequest(urlStr:String) {
         var urlString = urlStr
         if !urlStr.contains("http://") && !urlStr.contains("https://") && !urlStr.contains("file://"){
             urlString = "https://" + urlStr
@@ -153,6 +144,11 @@ open class MainWebView: TTViewController, WKUIDelegate, WKNavigationDelegate {
             let request = URLRequest(url: url)
             self.webView.load(request)
         }
+    }
+    
+    func loadLocals() {
+        let url = Bundle.main.url(forResource: "dist/index", withExtension: "html")
+        webView.loadFileURL(url!, allowingReadAccessTo: Bundle.main.bundleURL)
     }
     
     private func updateProgress(_ progress: Double) {
@@ -204,5 +200,7 @@ open class MainWebView: TTViewController, WKUIDelegate, WKNavigationDelegate {
     
     var isShowVoiceView: Bool = false
     
-    
+    var isLogin = false
+    var isShop = false
+    var isPayment = false
 }

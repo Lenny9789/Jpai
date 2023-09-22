@@ -186,18 +186,18 @@ open class TTMD5 {
 
 extension String {
 
-    public var md5: String {
-        let bytes = Array<TTMD5.Byte>(self.utf8)
-        let encodedBytes = TTMD5.calculate(bytes)
-
-        let string = encodedBytes.reduce("") { string, byte in
-            let radix = 16
-            let hex = String(byte, radix: radix)
-            let sum = string + (byte < TTMD5.Byte(radix) ? "0" : "") + hex
-            return sum
-        }
-
-        return string
-    }
+//    public var md5: String {
+//        let bytes = Array<TTMD5.Byte>(self.utf8)
+//        let encodedBytes = TTMD5.calculate(bytes)
+//
+//        let string = encodedBytes.reduce("") { string, byte in
+//            let radix = 16
+//            let hex = String(byte, radix: radix)
+//            let sum = string + (byte < TTMD5.Byte(radix) ? "0" : "") + hex
+//            return sum
+//        }
+//
+//        return string
+//    }
 
 }

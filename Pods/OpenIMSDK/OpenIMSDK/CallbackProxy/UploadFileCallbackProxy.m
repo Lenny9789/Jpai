@@ -37,7 +37,7 @@
     }
 }
 
-- (void)complete:(int64_t)size url:(NSString *)url typ:(long)typ {
+- (void)complete:(int64_t)size url:(NSString* _Nullable)url typ:(int32_t)typ {
     [self dispatchMainThread:^{
         onCompletion(size, url, typ);
     }];
@@ -47,7 +47,7 @@
     
 }
 
-- (void)hashPartProgress:(long)index size:(int64_t)size partHash:(NSString *)partHash {
+- (void)hashPartProgress:(int32_t)index size:(int64_t)size partHash:(NSString* _Nullable)partHash {
     
 }
 
@@ -55,7 +55,7 @@
     
 }
 
-- (void)partSize:(int64_t)partSize num:(long)num {
+- (void)partSize:(int64_t)partSize num:(int32_t)num {
     
 }
 
@@ -69,7 +69,7 @@
     
 }
 
-- (void)uploadPartComplete:(long)index partSize:(int64_t)partSize partHash:(NSString *)partHash {
+- (void)uploadPartComplete:(int32_t)index partSize:(int64_t)partSize partHash:(NSString* _Nullable)partHash {
     
 }
 

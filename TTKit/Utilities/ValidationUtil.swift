@@ -36,9 +36,9 @@ public func tt_validateUserName(_ content: String) -> Bool {
 }
 
 /// 校验昵称
-public func tt_validateNickname(_ content: String) -> Bool {
-    let nicknameRegex = "^[\u{4e00}-\u{9fa5}]{4,8}$"
-    let passWordPredicate = NSPredicate(format: "SELF MATCHES%@", nicknameRegex)
+public func tt_validatenickName(_ content: String) -> Bool {
+    let nickNameRegex = "^[\u{4e00}-\u{9fa5}]{4,8}$"
+    let passWordPredicate = NSPredicate(format: "SELF MATCHES%@", nickNameRegex)
     return passWordPredicate.evaluate(with: content)
 }
     

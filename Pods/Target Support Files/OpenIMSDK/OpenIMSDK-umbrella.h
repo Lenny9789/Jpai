@@ -46,6 +46,7 @@
 #import "OIMQuoteElem.h"
 #import "OIMSearchParam.h"
 #import "OIMSearchResultInfo.h"
+#import "OIMSignalingInfo.h"
 #import "OIMSimpleRequstInfo.h"
 #import "OIMSimpleResultInfo.h"
 #import "OIMSoundElem.h"

@@ -53,7 +53,7 @@ class TMediaBrowserToolbar: UIView {
         super.layoutSubviews()
 
         if self.isToolViewAddedTo {
-            toolView?.frame = CGRect(x: leftMargin, y: self.bounds.size.height-kSafeAreaBottomHeight()-btmMargin-controlHeight, width: self.bounds.size.width-leftMargin*2, height: controlHeight)
+            toolView?.frame = CGRect(x: leftMargin, y: self.bounds.size.height-kSafeAreaBottomHeight-btmMargin-controlHeight, width: self.bounds.size.width-leftMargin*2, height: controlHeight)
         }
     }
     
@@ -65,7 +65,7 @@ class TMediaBrowserToolbar: UIView {
         var height: CGFloat = 0
         height += controlHeight
         height += btmMargin
-        height += kSafeAreaBottomHeight()
+        height += kSafeAreaBottomHeight
         return height
     }
     

@@ -88,23 +88,10 @@ public struct API {
         public var changePasswd: APIItem { APIItem("/api/user/change_password", d: "修改密码", m: .post) }
         public var userInfo: APIItem { APIItem("/api/user/find_info", d: "获取用户信息", m: .get) }
         public var updateInfo: APIItem { APIItem("/api/user/update_info", d: "修改账户信息", m: .post) }
+        public var minio: APIItem { APIItem("/api/resource/get_minio_config", d: "获取miniio配置", m: .get) }
     }
     
-    // MARK: 我的家族
-    public struct Family {
-        static let shared = Family()
-
-        public var list: APIItem { APIItem("/api/family/list", d: "家族列表", m: .get) }
-        public var detail: APIItem { APIItem("/api/family/detail", d: "家族列表", m: .get) }
-        public var member: APIItem { APIItem("/api/family/member", d: "家族列表", m: .get) }
-        public var saveFamliy: APIItem { APIItem("/api/family/save", d: "创建更新家族", m: .post) }
-        public var saveMember: APIItem { APIItem("/api/family/member-save", d: "创建更新成员", m: .post) }
-        public var deleteMember: APIItem { APIItem("/api/family/member-delete", d: "创建更新成员", m: .post) }
-        public var deleteFamily: APIItem { APIItem("/api/family/delete", d: "删除成员", m: .post) }
-        public var saveAlert: APIItem { APIItem("/api/alert/save", d: "创建提醒", m: .post) }
-        public var alertList: APIItem { APIItem("/api/alert/list", d: "家族列表", m: .get) }
-        public var deleteAlert: APIItem { APIItem("/api/alert/delete", d: "删除提醒", m: .post) }
-    }
+    
     
     // MARK: 用户
     public struct User {
@@ -137,42 +124,7 @@ public struct API {
         public var shield: APIItem { APIItem("/api/user/shield", d: "", m: .post) }
         public var shieldList: APIItem { APIItem("/api/user/get-shield-list", d: "屏蔽列表") }
     }
-    
-    // MARK: 纪念馆
-    public struct Memorial {
-        static let shared = Memorial()
-        
-        public var list: APIItem { APIItem("/api/memorial/list", d: "纪念馆列表") }
-        public var memorialHall: APIItem { APIItem("/api/memorial/memorial-halls", d: "纪念馆大厅") }
-        public var like: APIItem { APIItem("/api/memorial/like", d: "纪念馆收藏", m: .post) }
-        public var sendWish: APIItem { APIItem("/api/memorial/give-memorial-wish", d: "纪念馆收藏", m: .post) }
-        public var addMember: APIItem { APIItem("/api/memorial/add-member", d: "纪念馆收藏", m: .post) }
-        public var upload: APIItem { APIItem("/api/memorial/upload-material", d: "纪念馆上传图片视频", m: .post) }
-        public var materials: APIItem { APIItem("/api/memorial/materials", d: "纪念馆图片视频") }
-        public var userOwnerList: APIItem { APIItem("/api/memorial/user-memorials", d: "纪念馆详情") }
-        public var detail: APIItem { APIItem("/api/memorial/detail", d: "纪念馆详情") }
-        public var save: APIItem { APIItem("/api/memorial/save", d: "创建或更新", m: .post) }
-        public var delete: APIItem { APIItem("/api/memorial/delete", d: "纪念馆删除", m: .post) }
-        public var deleteMaterial: APIItem { APIItem("/api/memorial/delete-material", d: "纪念馆删除", m: .post) }
-        public var transfer: APIItem { APIItem("/api/memorial/transfer", d: "转移", m: .post) }
-        public var receive: APIItem { APIItem("/api/memorial/receive", d: "接收", m: .post) }
-        public var sg: APIItem { APIItem("/api/memorial/sg", d: "放置贡品", m: .post) }
-        public var gpList: APIItem { APIItem("/api/memorial/gps", d: "获取所有贡品") }
-        public var user_gps: APIItem { APIItem("/api/memorial/user-gps", d: "纪念馆里的贡品") }
-        public var userMissVList: APIItem { APIItem("/api/memorial/user-miss-v-list", d: "思念值排行") }
-        public var userEvents: APIItem { APIItem("/api/memorial/user-events", d: "用户事件列表") }
-        public var leaveMessage: APIItem { APIItem("/api/memorial/leave-message", d: "留言", m: .post) }
-        public var leaveMessages: APIItem { APIItem("/api/memorial/leave-messages", d: "留言列表") }
-        public var metrics: APIItem { APIItem("/api/memorial/get-user-memorial-metrics", d: "留言列表") }
-    }
-    // MARK: 首页
-    public struct Home {
-        static let shared = Home()
-
-        public var homeModules: APIItem { APIItem("/api/home/homeModules", d: "首页模块") }
-        public var activityList: APIItem { APIItem("/api/home/activityList", d: "活动列表") }
-        public var activityDetail: APIItem { APIItem("/api/home/activityDetail", d: "活动详情") }
-    }
+   
     
     
 }

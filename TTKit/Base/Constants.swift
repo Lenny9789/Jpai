@@ -54,13 +54,13 @@ public var kScreenBounds = UIScreen.main.bounds
 public var kScreenSize = UIScreen.main.bounds.size
 
 /// 屏幕宽
-public var kScreenWidth = UIScreen.main.bounds.size.width
+//public var kScreenWidth = UIScreen.main.bounds.size.width
 
 /// 屏幕高
-public var kScreenHeight = UIScreen.main.bounds.size.height
+//public var kScreenHeight = UIScreen.main.bounds.size.height
 
 /// 状态栏高
-public let kStatusBarHeight = UIApplication.shared.statusBarFrame.size.height
+//public let kStatusBarHeight = UIApplication.shared.statusBarFrame.size.height
 
 /// 导航栏高
 public let kNavBarHeight = CGFloat(44.0)
@@ -93,14 +93,14 @@ public func kSafeAreaTopHeight() -> CGFloat {
 }
 
 /// 底部安全区域高
-public func kSafeAreaBottomHeight() -> CGFloat {
-    if #available(iOS 11.0, *) { //34
-        if let height = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
-            return height
-        }
-    }
-    return 0.0;
-}
+//public func kSafeAreaBottomHeight() -> CGFloat {
+//    if #available(iOS 11.0, *) { //34
+//        if let height = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+//            return height
+//        }
+//    }
+//    return 0.0;
+//}
 
 /// 左侧安全区域高
 public func kSafeAreaLeftWidth() -> CGFloat {

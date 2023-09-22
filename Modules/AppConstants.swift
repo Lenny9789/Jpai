@@ -4,25 +4,20 @@ import UIKit
 @_exported import Rswift
 @_exported import RxCocoa
 @_exported import RxSwiftExt
-@_exported import RxBinding
 @_exported import WHC_Layout
-//@_exported import Then
+@_exported import Then
 @_exported import SwifterSwift
 @_exported import RxGesture
 @_exported import GKNavigationBarSwift
 @_exported import SwiftyUserDefaults
 @_exported import CleanJSON
 @_exported import SwiftyJSON
-@_exported import OpenIMSDK
 
 public typealias Param = [String: Any]
 
-let kApiAddress = "http://220.173.138.144:10002"
-let kWsAddress = "ws://220.173.138.144:10001"
-let kAppDomain = "http://220.173.138.144:19804"//prodDomain
-let kRTCDomain = "http://220.173.138.144:10088"//prodDomain
-var localDebugIP = "http://192.168.31.103:5173/login"
+let kATAUSDKKey = "47Gs8aadQoefREn4XNXosTaK1Ljes9wqhiRAx8zQU931VZpHmxmRHlw5pNo9YUAn/5sfQTMJyucDV4PpN+ZmbybbFD6PqaVYqIQkIjwxqn2pc0nzNorh29WykL7Ns0BWjMfquK1iMNkDuDxAu/kgYxrhmWegoY6FDS4vyhHMezWErpZh5dydUNbU7OXdIaqlysT9hmBY9Dn/EtiGhg3OqHMFut5G8RBb73ZfXrRVluOUmDMHsOzpo3y6T7+Ihb9jK45rczstGzXm850uLrQn9g=="
 
+let wxAppId = "wx17e3cbf2e6d40981"
 
 /// 获取AppDelegate
 let kAppDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -37,8 +32,7 @@ let kPlayerContainerViewTag = 1012
 
 private let testDomain = "https://www.minghaimuyuan.vip"
 private let prodDomain = "https://www.minghaimuyuan.xyz"
-
-
+let kAppDomain = "http://220.173.138.144:19804"//prodDomain
 
 var kUserToken: String {
     set {
@@ -49,7 +43,7 @@ var kUserToken: String {
     }
 }
 
-var kUserLoginModel: JSON! {
+var kUserModel: JSON! {
     set {
         Defaults[\.userModelString] = newValue.toJSONString() ?? ""
     }
@@ -87,6 +81,20 @@ var kUserInfoModel: JSON! {
     }
 }
 
+var kOSSTokenModel: OSSPolicyModel! {
+    set {
+        Defaults[\.ossTokenString] = newValue.toJSONString() ?? ""
+    }
+    get {
+        let modelStr = Defaults[\.ossTokenString]
+        guard modelStr.count > 0 else {
+            return OSSPolicyModel()
+        }
+        
+        let model = try! CleanJSONDecoder.decode(modelStr, to: OSSPolicyModel.self)
+        return model
+    }
+}
 
 extension DefaultsKeys {
     var userToken: DefaultsKey<String> {
@@ -110,7 +118,10 @@ extension DefaultsKeys {
 extension TTNotifyName.App {
     
     public static let needLogin = Notification.Name(rawValue: "needLogin")
-    public static let OIMSDKLoginSuccess = Notification.Name(rawValue: "OIMSDKLoginSuccess")
+    public static let didVideoPresent = Notification.Name(rawValue: "didVideoPresent")
+    public static let didVideoDismiss = Notification.Name(rawValue: "didVideoDismiss")
+    public static let alipResult = Notification.Name(rawValue: "alipResult")
+    public static let wepResult = Notification.Name(rawValue: "wepResult")
 }
 extension Data {
     //将Data转换为String

@@ -1,51 +1,83 @@
 PODS:
-  - Alamofire (5.7.1)
+  - Alamofire (5.8.0)
   - AliRTCSdk (2.5.7)
+  - AWSCore (2.33.4)
+  - AWSS3 (2.33.4):
+    - AWSCore (= 2.33.4)
   - Cache (6.0.0)
+  - ChatLayout (1.3.4):
+    - ChatLayout/Ultimate (= 1.3.4)
+  - ChatLayout/Core (1.3.4)
+  - ChatLayout/Extras (1.3.4):
+    - ChatLayout/Core
+  - ChatLayout/Ultimate (1.3.4):
+    - ChatLayout/Core
+    - ChatLayout/Extras
   - CleanJSON (1.0.9)
   - CocoaAsyncSocket (7.6.5)
   - DeviceKit (5.0.0)
+  - DifferenceKit (1.3.0):
+    - DifferenceKit/Core (= 1.3.0)
+    - DifferenceKit/UIKitExtension (= 1.3.0)
+  - DifferenceKit/Core (1.3.0)
+  - DifferenceKit/UIKitExtension (1.3.0):
+    - DifferenceKit/Core
+  - Differentiator (5.0.0)
   - ESPullToRefresh (2.9.3)
   - GKNavigationBarSwift (1.6.4)
-  - Kingfisher (7.9.1)
+  - InputBarAccessoryView (5.5.0):
+    - InputBarAccessoryView/Core (= 5.5.0)
+  - InputBarAccessoryView/Core (5.5.0)
+  - IQKeyboardManagerSwift (6.5.12)
+  - JXSegmentedView (1.3.0)
+  - Kingfisher (7.7.0)
   - KTVCocoaHTTPServer (1.0.0):
     - CocoaAsyncSocket
   - KTVHTTPCache (2.0.1):
     - KTVCocoaHTTPServer
   - Lantern (1.1.5)
+  - Localize-Swift (3.2.0):
+    - Localize-Swift/LocalizeSwiftCore (= 3.2.0)
+    - Localize-Swift/UIKit (= 3.2.0)
+  - Localize-Swift/LocalizeSwiftCore (3.2.0)
+  - Localize-Swift/UIKit (3.2.0):
+    - Localize-Swift/LocalizeSwiftCore
+  - lottie-ios (3.5.0)
   - MBProgressHUD (1.2.0)
   - MJExtension (3.4.1)
-  - OpenIMSDK (3.2.0):
+  - MJRefresh (3.7.5)
+  - OpenIMSDK (3.0.0):
     - MJExtension
-    - OpenIMSDK/Callbacker (= 3.2.0)
-    - OpenIMSDK/CallbackProxy (= 3.2.0)
-    - OpenIMSDK/Interface (= 3.2.0)
-    - OpenIMSDK/Model (= 3.2.0)
-    - OpenIMSDK/Utils (= 3.2.0)
-    - OpenIMSDKCore (= 3.2.0)
-  - OpenIMSDK/Callbacker (3.2.0):
+    - OpenIMSDK/Callbacker (= 3.0.0)
+    - OpenIMSDK/CallbackProxy (= 3.0.0)
+    - OpenIMSDK/Interface (= 3.0.0)
+    - OpenIMSDK/Model (= 3.0.0)
+    - OpenIMSDK/Utils (= 3.0.0)
+    - OpenIMSDKCore (= 3.0.0)
+  - OpenIMSDK/Callbacker (3.0.0):
     - MJExtension
     - OpenIMSDK/Model
     - OpenIMSDK/Utils
-    - OpenIMSDKCore (= 3.2.0)
-  - OpenIMSDK/CallbackProxy (3.2.0):
+    - OpenIMSDKCore (= 3.0.0)
+  - OpenIMSDK/CallbackProxy (3.0.0):
     - MJExtension
     - OpenIMSDK/Utils
-    - OpenIMSDKCore (= 3.2.0)
-  - OpenIMSDK/Interface (3.2.0):
+    - OpenIMSDKCore (= 3.0.0)
+  - OpenIMSDK/Interface (3.0.0):
     - MJExtension
     - OpenIMSDK/Callbacker
     - OpenIMSDK/CallbackProxy
     - OpenIMSDK/Model
-    - OpenIMSDKCore (= 3.2.0)
-  - OpenIMSDK/Model (3.2.0):
+    - OpenIMSDKCore (= 3.0.0)
+  - OpenIMSDK/Model (3.0.0):
     - MJExtension
     - OpenIMSDK/Utils
-    - OpenIMSDKCore (= 3.2.0)
-  - OpenIMSDK/Utils (3.2.0):
+    - OpenIMSDKCore (= 3.0.0)
+  - OpenIMSDK/Utils (3.0.0):
     - MJExtension
-    - OpenIMSDKCore (= 3.2.0)
-  - OpenIMSDKCore (3.2.0)
+    - OpenIMSDKCore (= 3.0.0)
+  - "OpenIMSDKCore (3.0.0+1)"
+  - ProgressHUD (13.7.2)
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
@@ -55,6 +87,10 @@ PODS:
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
   - RxGesture (4.0.4):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
@@ -72,7 +108,7 @@ PODS:
   - RxSwiftExt/RxCocoa (6.0.1):
     - RxCocoa (~> 6.0)
     - RxSwiftExt/Core
-  - SnapKit (5.6.0)
+  - SnapKit (4.2.0)
   - SwiftDate (7.0.0)
   - SwifterSwift (5.2.0):
     - SwifterSwift/AppKit (= 5.2.0)
@@ -111,31 +147,46 @@ PODS:
   - ZFPlayer/ControlView (4.0.3):
     - ZFPlayer/Core
   - ZFPlayer/Core (4.0.3)
-  - ZLPhotoBrowser (4.1.9):
-    - ZLPhotoBrowser/Core (= 4.1.9)
-  - ZLPhotoBrowser/Core (4.1.9)
+  - ZLPhotoBrowser (4.3.9):
+    - ZLPhotoBrowser/Core (= 4.3.9)
+  - ZLPhotoBrowser/Core (4.3.9)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (= 5.8.0)
   - AliRTCSdk (= 2.5.7)
+  - AWSS3
   - Cache
+  - ChatLayout
   - CleanJSON
   - DeviceKit
+  - DifferenceKit
   - ESPullToRefresh
   - GKNavigationBarSwift
-  - Kingfisher (~> 7.0)
+  - InputBarAccessoryView
+  - IQKeyboardManagerSwift
+  - JXSegmentedView
+  - Kingfisher (= 7.7.0)
   - KTVHTTPCache
   - Lantern
+  - Localize-Swift (~> 3.2)
+  - lottie-ios (~> 3.0)
   - MBProgressHUD (~> 1.2.0)
-  - OpenIMSDK
+  - MJRefresh
+  - OpenIMSDK (= 3.0.0)
+  - ProgressHUD
   - R.swift (~> 6.0)
   - RxBinding
   - RxCocoa
+  - RxCocoa (~> 6.0)
+  - RxDataSources
   - RxGesture
   - RxKeyboard
+  - RxKeyboard (~> 2.0)
+  - RxRelay
   - RxSwift
+  - RxSwift (~> 6.5)
   - RxSwiftExt (~> 6)
-  - SnapKit
+  - SnapKit (~> 4.0)
   - SwiftDate (~> 7.0)
   - SwifterSwift
   - SwiftTheme
@@ -146,30 +197,43 @@ DEPENDENCIES:
   - ZFPlayer (~> 4.0.3)
   - ZFPlayer/AVPlayer (~> 4.0.3)
   - ZFPlayer/ControlView (~> 4.0.3)
-  - ZLPhotoBrowser (~> 4.1.7)
+  - ZLPhotoBrowser (~> 4.3.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AliRTCSdk
+    - AWSCore
+    - AWSS3
     - Cache
+    - ChatLayout
     - CleanJSON
     - CocoaAsyncSocket
     - DeviceKit
+    - DifferenceKit
+    - Differentiator
     - ESPullToRefresh
     - GKNavigationBarSwift
+    - InputBarAccessoryView
+    - IQKeyboardManagerSwift
+    - JXSegmentedView
     - Kingfisher
     - KTVCocoaHTTPServer
     - KTVHTTPCache
     - Lantern
+    - Localize-Swift
+    - lottie-ios
     - MBProgressHUD
     - MJExtension
+    - MJRefresh
     - OpenIMSDK
     - OpenIMSDKCore
+    - ProgressHUD
     - R.swift
     - R.swift.Library
     - RxBinding
     - RxCocoa
+    - RxDataSources
     - RxGesture
     - RxKeyboard
     - RxRelay
@@ -187,32 +251,45 @@ SPEC REPOS:
     - ZLPhotoBrowser
 
 SPEC CHECKSUMS:
-  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   AliRTCSdk: edd908edd25bd47167950383406f60396c2eb062
+  AWSCore: 83e3416d2224ba98b61d8eadcfcb1f90f48fab82
+  AWSS3: a0d31bc565dc8a6c5eaa756610ac15704c100674
   Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
+  ChatLayout: e07c2fd8ac2ba7a78684e5a8aa32291eb746cab1
   CleanJSON: 910a36465ce4829e264a902ccf6d1455fdd9f980
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DeviceKit: 0fd016a2cb67aca17c33dc23171cac270131eb88
+  DifferenceKit: ab185c4d7f9cef8af3fcf593e5b387fb81e999ca
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   ESPullToRefresh: 0d68daa602b343c81753a1b95e09fd0bfcddfd40
   GKNavigationBarSwift: 50ccb0c404b2b13aaa015343083938a15805f89d
-  Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
+  InputBarAccessoryView: 1d7b0a672b36e370f01f264b3907ef39d03328e3
+  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
+  JXSegmentedView: fec0d335355b6e019c494fe2e030bde8a36d2df6
+  Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
   KTVCocoaHTTPServer: df8d7b861e603ff8037e9b2138aca2563a6b768d
   KTVHTTPCache: 588c3eb16f6bd1e6fde1e230dabfb7bd4e490a4d
   Lantern: b192e7146c6d04e15e627f37281254a6a8593703
+  Localize-Swift: 6f4475136bdb0d7b2882ea3d4ea919d70142b232
+  lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
-  OpenIMSDK: 673f2ae1c6d91eba26a6729a6b759417302df7c0
-  OpenIMSDKCore: 95efffa47238c496566e5397af3933827361ba00
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
+  OpenIMSDK: 6fe41871340af1360008c5710248818aba1861cc
+  OpenIMSDKCore: 2e38a5b9be23e588b5049ebd378161cf277e41a0
+  ProgressHUD: 093d24ca970f191744017bee2649e37d0cd1c5b9
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   RxBinding: e3c76d02d0ee3f1a306a0fb8e8ef6f2eda65a375
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   RxSwiftExt: d61c4b9b06e0a448041b1c659e0f1b5c5a035afc
-  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwifterSwift: 334181863c416882d97b7a60c05054d9e4d799e2
   SwiftTheme: 007cbaf1f9e171caf6448a4657533e54c682b285
@@ -221,8 +298,8 @@ SPEC CHECKSUMS:
   WHC_KeyboardManager: feb58d9e4ed1c5f4bd8986c7904e7b23c3c246b9
   WHC_Layout: e5aa389f8f2b3a47d8b48ca0b0e1b1fbdc8d26a6
   ZFPlayer: 624c92de06eb34df322c3b53b4c9ce760f528f7a
-  ZLPhotoBrowser: 320aec37f64b0f58d40abd852956c64530011ea4
+  ZLPhotoBrowser: 02b3569b8f702d2e153e8fdb1f6b32fef3a2867c
 
-PODFILE CHECKSUM: 90a4dd254b2172c8f73cd4128372581ec842426c
+PODFILE CHECKSUM: f9188b3d1f1358a039719211b10d28266a7d3575
 
 COCOAPODS: 1.12.1

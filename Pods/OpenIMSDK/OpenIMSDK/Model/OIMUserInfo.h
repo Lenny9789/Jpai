@@ -23,11 +23,4 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) OIMReceiveMessageOpt globalRecvMsgOpt;
 @end
 
-@interface OIMUserStatusInfo : NSObject
-
-@property (nonatomic, nullable, copy) NSString *userID;
-@property (nonatomic, nullable, copy) NSArray *platformIDs;
-@property (nonatomic, assign) NSInteger status;
-@end
-
 NS_ASSUME_NONNULL_END

@@ -16,6 +16,15 @@ extension MainWebView: WKScriptMessageHandler {
     public func webView(_ webView: WKWebView,
                         didFinish navigation: WKNavigation!) {
         debugPrint("webWiew load success")
+        if isLogin {
+            webView.evaluateJavaScript("window.location.href='index.html#/login'")
+        }
+        if isShop {
+            webView.evaluateJavaScript("window.location.href='index.html#/shop'")
+        }
+        if isPayment {
+            webView.evaluateJavaScript("window.location.href='index.html#/paymentMethod'")
+        }
     }
     
     public func webView(_ webView: WKWebView,
@@ -27,7 +36,7 @@ extension MainWebView: WKScriptMessageHandler {
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        
+
         decisionHandler(.allow)
         return
     }
@@ -42,11 +51,21 @@ extension MainWebView: WKScriptMessageHandler {
             funData = JSON(parseJSON: body["funData"].string ?? "")
             
             let funId = body["funId"].stringValue
-            debugPrint(funName)
-            debugPrint(funData)
-            debugPrint(funId)
+            debugPrint("funcname:",funName)
+            debugPrint("funcdata", funData)
+            debugPrint("funid:", funId)
             
             switch funName {
+            case "jumpActivity":
+                if funData["activity_name"] == "chat" {
+                    MainTabBarController.shared.selectedIndex = 0
+                }
+                if funData["activity_name"] == "paymentMethod" {
+                    MainTabBarController.shared.jumpPayment()
+                }
+                if funData["activity_name"] == "main" {
+                    dismiss(animated: true)
+                }
             case "sendSms":
                 sendSms(funId, funcData: funData)
                 
@@ -102,6 +121,8 @@ extension MainWebView: WKScriptMessageHandler {
         }
     }
 }
+
+
 extension MainWebView {
     
     func createJSExecute(_ funcId: String, data: String) {
@@ -133,25 +154,32 @@ extension MainWebView {
             switch result {
             case .success(let model):
                 let json = JSON(model["data"])
-                if json.rawValue is String {
-                    //                            let js = "androidApiCallBack('\(funId)','\(model.description)')"
-                    //                            self.webView.evaluateJavaScript(js)
-                    return
-                }
+
                 kUserToken = json["Token"].stringValue
                 kUserLoginModel = json
+                let isNew = kUserLoginModel["IsNew"].boolValue.description
                 
-                OIMManager.manager.login(kUserLoginModel["Id"].stringValue, token: kUserLoginModel["Token"].stringValue) { result in
+                OIMManager.manager.login(
+                    kUserLoginModel["Id"].stringValue,
+                    token: kUserLoginModel["Token"].stringValue
+                ) { result in
                     debugPrint("----loginSuccess:", result ?? "")
-//                    let param: Param = ["status": 200,
-//                                        "msg": "success",
-//                                        "userID": kUserLoginModel["Id"].stringValue,
-//                                        "imToken": kUserLoginModel["H5Token"].stringValue]
-//                    let str = try? param.jsonString(using: .utf8, options: .init(rawValue: 0))
-//                    self.createJSExecute(funcId, data: str ?? "")
+                
+                    let param: Param = ["status": 200,
+                                        "msg": "success",
+                                        "IsNew": isNew,
+                                        "userID": kUserLoginModel["Id"].stringValue,
+                                        "imToken": kUserLoginModel["H5Token"].stringValue
+                    ]
+                    let str = try? param.jsonString(using: .utf8, options: .init(rawValue: 0))
+                    self.createJSExecute(funcId, data: str ?? "")
+                    NotificationCenter.default.post(name: TTNotifyName.App.OIMSDKLoginSuccess, object: nil)
                     
-                    self.dismiss(animated: true)
-                    
+                    if isNew == "false" {
+                        self.dismiss(animated: true)
+                    } else {
+                        self.webView.evaluateJavaScript("window.location.href='index.html#/setPassword'")
+                    }
                 } onFailure: { code, message in
                     debugPrint("---------code:\(code), message: \(message ?? "")")
                 }
@@ -173,15 +201,22 @@ extension MainWebView {
                 kUserToken = json["H5Token"].stringValue
                 kUserLoginModel = json
                 
-                OIMManager.manager.login(kUserLoginModel["Id"].stringValue, token: kUserLoginModel["Token"].stringValue) { result in
+                OIMManager.manager.login(
+                    kUserLoginModel["Id"].stringValue,
+                    token: kUserLoginModel["Token"].stringValue
+                ) { result in
                     debugPrint("----loginSuccess:", result ?? "")
+                
                     let param: Param = ["status": 200,
                                         "msg": "success",
                                         "userID": kUserLoginModel["Id"].stringValue,
-                                        "imToken": kUserLoginModel["H5Token"].stringValue]
+                                        "imToken": kUserLoginModel["H5Token"].stringValue
+                    ]
                     let str = try? param.jsonString(using: .utf8, options: .init(rawValue: 0))
                     self.createJSExecute(funcId, data: str ?? "")
+                    NotificationCenter.default.post(name: TTNotifyName.App.OIMSDKLoginSuccess, object: nil)
                     
+                    self.dismiss(animated: true)
                 } onFailure: { code, message in
                     debugPrint("---------code:\(code), message: \(message ?? "")")
                 }
@@ -256,14 +291,16 @@ extension MainWebView {
         if tt_validateMobile(data) {
             param = ["Phone": data]
         }else {
-            param = ["userid": data]
+        param = ["userId": data]
+//        let str = try? param.jsonString(using: .utf8, options: .init(rawValue: 0))
+//        createJSExecute(funcId, data: str ?? "")
         }
         APIService.shared.fetchUserInfo(param: param) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .success(let model):
                 self.createJSExecute(funcId, data: model.toJSONString() ?? "")
-                
+
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }
@@ -329,8 +366,8 @@ extension MainWebView {
     
     ///获取相册获取图片视频
     func fetchAlbumResource(funcId: String, funcData: JSON) {
-        let recv_uid = funcData["recv_uid"].stringValue
-        let recv_gid = funcData["recv_gid"].stringValue
+        let bucket_name = funcData["bucket_name"].stringValue
+        let purpose_code = funcData["purpose_code"].intValue
         
         let config = ZLPhotoConfiguration.default()
         config.allowMixSelect = false
@@ -338,20 +375,22 @@ extension MainWebView {
         config.allowSelectImage = true
         config.maxSelectCount = 1
         let controller = ZLPhotoPreviewSheet()
-        controller.selectImageBlock = { [weak self] images, phAssets, isOrigin in
+        controller.selectImageBlock = { [weak self] results, isOrigin in
             guard let `self` = self else { return }
-            if phAssets[0].mediaType == .image {
-                ZLPhotoManager.fetchAssetFilePath(asset: phAssets[0]) { filePath in
+            debugPrint(results, isOrigin)
+            if results[0].asset.mediaType == .image {
+                ZLPhotoManager.fetchAssetFilePath(asset: results[0].asset) { filePath in
                     guard let filePath = filePath, let fileURL = URL(string: filePath) else { return }
-                    
-                    if let newUrl = tt_copyFileToTempDir(fileURL: fileURL) {
-                        let message = OIMMessageInfo.createImageMessage(fromFullPath: newUrl.path)
-                        message.status = .sending
-                        self.sendMessage(message, uid: recv_uid, gid: recv_gid)
+                    if filePath.pathExtension == "HEIC" || filePath.pathExtension == "HEIF" {
+                        if let newUrl = tt_convtHEICToJPG(fileURL: fileURL) {
+                            self.uploadImage(newUrl, bucketName: bucket_name)
+                        }
+                    } else if let newUrl = tt_copyFileToTempDir(fileURL: fileURL) {
+                        self.uploadImage(newUrl, bucketName: bucket_name)
                     }
                 }
-            } else if phAssets[0].mediaType == .video {
-                ZLPhotoManager.fetchAssetFilePath(asset: phAssets[0]) { (filePath) in
+            } else if results[0].asset.mediaType == .video {
+                ZLPhotoManager.fetchAssetFilePath(asset: results[0].asset) { (filePath) in
                     guard let filePath = filePath, let fileURL = URL(string: filePath) else { return }
                     debugPrint("filePath: \(filePath)")
                     debugPrint(fileURL)
@@ -367,14 +406,14 @@ extension MainWebView {
                         if let newUrl = tt_copyFileToTempDir(fileURL: fileURL),
                            let snap = tt_fetchVideoSnapshotToTempDir(newUrl) {
                             
-                            let message = OIMMessageInfo.createVideoMessage(
-                                fromFullPath: newUrl.path,
-                                videoType: "mp4",
-                                duration: videos,
-                                snapshotPath: snap.path
-                            )
-                            message.status = .sending
-                            self.sendMessage(message, uid: recv_uid, gid: recv_gid)
+//                            let message = OIMMessageInfo.createVideoMessage(
+//                                fromFullPath: newUrl.path,
+//                                videoType: "mp4",
+//                                duration: videos,
+//                                snapshotPath: snap.path
+//                            )
+//                            message.status = .sending
+//                            self.sendMessage(message, uid: recv_uid, gid: recv_gid)
                         } else {
                             debugPrint("拷贝文件失败!")
                         }
@@ -383,14 +422,14 @@ extension MainWebView {
                             if let newUrl = newUrl,
                                let snap = tt_fetchVideoSnapshotToTempDir(newUrl) {
                                 
-                                let message = OIMMessageInfo.createVideoMessage(
-                                    fromFullPath: newUrl.path,
-                                    videoType: "mp4",
-                                    duration: videos,
-                                    snapshotPath: snap.path
-                                )
-                                message.status = .sending
-                                self.sendMessage(message, uid: recv_uid, gid: recv_gid)
+//                                let message = OIMMessageInfo.createVideoMessage(
+//                                    fromFullPath: newUrl.path,
+//                                    videoType: "mp4",
+//                                    duration: videos,
+//                                    snapshotPath: snap.path
+//                                )
+//                                message.status = .sending
+//                                self.sendMessage(message, uid: recv_uid, gid: recv_gid)
                             } else {
                                 debugPrint("导出文件失败!")
                             }
@@ -399,6 +438,7 @@ extension MainWebView {
                 }
             }
         }
+        
         controller.showPhotoLibrary(sender: self)
     }
     
@@ -409,6 +449,24 @@ extension MainWebView {
             debugPrint(image, videoUrl)
         }
         showDetailViewController(camera, sender: nil)
+    }
+    
+    func uploadImage(_ fileURL: URL, bucketName: String) {
+        
+        APIService.shared.fetchMinio { result in
+            switch result {
+            case .success(let value):
+                if value["status"].intValue == 200 {
+                    AWSMinioUploader.shared.upload(
+                        param: value["data"],
+                        bucketName: bucketName,
+                        file: fileURL
+                    )
+                }
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
     }
     
     //发送语音消息
@@ -426,7 +484,7 @@ extension MainWebView {
         }else {
             self.isShowVoiceView = true
             self.webView.whc_RemoveAttrs(.bottom)
-                .whc_Bottom(45 + kSafeAreaBottomHeight())
+                .whc_Bottom(45 + kSafeAreaBottomHeight)
             UIView.animate(withDuration: 0.25) {
                 self.view.layoutIfNeeded()
             }

@@ -1,7 +1,7 @@
 "previewCamera" = "Kamera";
 "previewCameraRecord" = "Aufzeichnung";
 "previewAlbum" = "Album";
-"cancel" = "Stornieren";
+"cancel" = "Abbrechen";
 
 "originalPhoto" = "Vollbild";
 "done" = "Erledigt";
@@ -11,15 +11,16 @@
 "back" = "Zurück";
 "edit" = "Bearbeiten";
 "revert" = "Rückgängig";
+"brightness" = "Helligkeit";
+"contrast" = "Kontrast";
+"saturation" = "Sättigung";
 
 "photo" = "Fotos";
 "preview" = "Vorschau";
 
-"noPhotoTips" = "Kein Foto";
-"notAllowMixSelect" = "Video kann nicht ausgewählt werden";
+"noPhotoTips" = "Keine Fotos";
 
-"loading" = "Laden, bitte warten";
-"hudLoading" = "warten...";
+"hudLoading" = "Bitte warten...";
 
 "exceededMaxSelectCount" = "Maximale Auswahlanzahl: %ld";
 "longerThanMaxVideoDuration" = "Video mit einer Dauer von mehr als %lds kann nicht ausgewählt werden";
@@ -29,7 +30,7 @@
 
 "noCameraAuthority" = "Bitte erlauben Sie %@, auf die Kamera Ihres Geräts unter \"Einstellungen\" > \"Datenschutz\" > \"Kamera\" zuzugreifen";
 "noPhotoLibratyAuthority" = "Bitte erlauben Sie %@, auf Ihr Album unter \"Einstellungen\" > \"Datenschutz\" > \"Fotos\" zuzugreifen";
-"noMicrophoneAuthority" = "Audio kann nicht aufgenommen werden. Gehen Sie zu \"Einstellungen\" > \"%@\" und aktivieren Sie den Mikrofonzugriff.";
+"noMicrophoneAuthority" = "Audio kann nicht aufgenommen werden. Gehen Sie zu \"Einstellungen\" > \"%@\" und aktivieren Sie den Mikrofonzugriff";
 "cameraUnavailable" = "Kamera ist nicht verfügbar";
 "keepRecording" = "Aufnahme behalten";
 "gotoSettings" = "Zu Einstellungen wechseln";

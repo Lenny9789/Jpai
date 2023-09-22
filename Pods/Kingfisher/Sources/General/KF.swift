@@ -313,7 +313,7 @@ extension KF.Builder {
 
 #if !os(watchOS)
 extension KF.Builder {
-    #if os(iOS) || os(tvOS) || os(visionOS)
+    #if os(iOS) || os(tvOS)
 
     /// Sets a placeholder which is used while retrieving the image.
     /// - Parameter placeholder: A placeholder to show while retrieving the image from its source.
@@ -336,7 +336,7 @@ extension KF.Builder {
 
 extension KF.Builder {
 
-    #if os(iOS) || os(tvOS) || os(visionOS)
+    #if os(iOS) || os(tvOS)
     /// Sets the transition for the image task.
     /// - Parameter transition: The desired transition effect when setting the image to image view.
     /// - Returns: A `KF.Builder` with changes applied.

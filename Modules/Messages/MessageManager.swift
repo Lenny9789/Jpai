@@ -4,50 +4,6 @@ import OpenIMSDK
 import AudioToolbox
 
 
-// -1 链接失败 0 链接中 1 链接成功 2 同步开始 3 同步结束 4 同步错误
-public enum ConnectionStatus: Int {
-    case connectFailure = 0
-    case connecting = 1
-    case connected = 2
-    case syncStart = 3
-    case syncComplete = 4
-    case syncFailure = 5
-    case kickedOffline = 6
-    
-    public var title: String {
-        switch self {
-        case .connectFailure:
-            return "连接失败"
-        case .connecting:
-            return "连接中"
-        case .connected:
-            return "连接成功"
-        case .syncStart:
-            return "同步开始"
-        case .syncComplete:
-            return "同步完成"
-        case .syncFailure:
-            return "同步失败"
-        case .kickedOffline:
-            return "账号在其它设备登录"
-        }
-    }
-}
-public enum SDKError: Int {
-    case blockedByFriend = 600 // 被对方拉黑
-    case deletedByFriend = 601 // 被对方删除
-    case refuseToAddFriends = 10007 // 该用户已设置不可添加
-}
-
-public enum CustomMessageType: Int {
-    case call = 901 // 音视频
-    case customEmoji = 902 // emoji
-    case tagMessage = 903 // 标签消息
-    case moments = 904 // 朋友圈
-    case meeting = 905 // 会议
-    case blockedByFriend = 910 // 被拉黑
-    case deletedByFriend = 911 // 被删除
-}
 
 class MessageManager: NSObject {
     public static let addFriendPrefix = "io.openim.app/addFriend/"
@@ -81,7 +37,7 @@ class MessageManager: NSObject {
     public let momentsReceivedSubject: PublishSubject<String?> = .init()
 //    public let meetingStreamChange: PublishSubject<MeetingStreamEvent> = .init()
 //    public let organizationUpdated: PublishSubject<String?> = .init()
-    
+    public let didSendMessageSuccess: PublishSubject<Void> = .init()
     /// 连接状态
     public let connectionRelay: BehaviorRelay<ConnectionStatus> = .init(value: .connecting)
     
@@ -105,7 +61,7 @@ class MessageManager: NSObject {
     }
     
     func setupMessageManager() -> Bool {
-        
+        IMController.shared.imManager = OIMManager.manager
         var config = OIMInitConfig()
         config.apiAddr = kApiAddress
         config.wsAddr = kWsAddress
@@ -129,10 +85,12 @@ class MessageManager: NSObject {
         }
         
         // Set listener
-//        OpenIMSDK.OIMManager.callbacker.addFriendListener(listener: self)
-//        OpenIMSDK.OIMManager.callbacker.addGroupListener(listener: self)
-        OpenIMSDK.OIMManager.callbacker.addConversationListener(listener: self)
-        OpenIMSDK.OIMManager.callbacker.addAdvancedMsgListener(listener: self)
+        OIMManager.callbacker.addFriendListener(listener: self)
+        OIMManager.callbacker.addGroupListener(listener: self)
+        OIMManager.callbacker.addConversationListener(listener: self)
+        OIMManager.callbacker.addAdvancedMsgListener(listener: self)
+        
+        
         
         return result
     }
@@ -161,6 +119,64 @@ class MessageManager: NSObject {
                 AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
             }
             remindTimeStamp = NSDate().timeIntervalSince1970
+        }
+    }
+    
+    func sendCustomMessage(param: Param, recvID: String) {
+        let str = try? param.jsonString(using: .utf8, options: .init(rawValue: 0))
+        let message = OIMMessageInfo.createCustomMessage(str ?? "", extension: "[通话]", description: "")
+        let off = OIMOfflinePushInfo()
+        off.title = "您收到一个通话"
+        off.desc = ""
+        off.iOSBadgeCount = true
+        OIMManager.manager.sendMessage(message, recvID: recvID, groupID: "", offlinePushInfo: off) { [weak self] message in
+            guard let `self` = self else { return }
+            debugPrintS(message)
+            self.didSendMessageSuccess.onNext(())
+        } onProgress: { progres in
+            debugPrint("progres:\(progres)")
+        } onFailure: { code, msg in
+            debugPrintS("code:\(code), error:\(msg ?? "")")
+        }
+    }
+    
+    func getConversation(sessionType: ConversationType = .undefine,
+                         sourceId: String = "",
+                         conversationID: String = "",
+                         onSuccess: @escaping (OIMConversationInfo) -> Void) {
+        
+        if !conversationID.isEmpty {
+            
+//            Self.shared.imManager.getMultipleConversation([conversationID]) { conversations in
+//                onSuccess(conversations?.first?.toConversationInfo())
+//            } onFailure: { code, msg in
+//                print("创建会话失败:\(code), .msg:\(msg)")
+//            }
+            OIMManager.manager.getMultipleConversation([conversationID]) { [weak self] info in
+//                guard let `self` = self else { return }
+                guard let info = info, info.count > 0 else { return }
+                onSuccess(info[0])
+            } onFailure: { code, error in
+                print("创建会话失败:\(code), .msg:\(error)")
+            }
+        } else {
+            
+            let conversationType = OIMConversationType(rawValue: sessionType.rawValue) ?? OIMConversationType.undefine
+            
+//            Self.shared.imManager.getOneConversation(withSessionType: conversationType, sourceID: sourceId) { (conversation: OIMConversationInfo?) in
+//                onSuccess(conversation?.toConversationInfo())
+//            } onFailure: { code, msg in
+//                print("创建会话失败:\(code), .msg:\(msg)")
+//            }
+            
+            OIMManager.manager.getOneConversation(
+                withSessionType: conversationType,
+                sourceID: sourceId
+            ) { [weak self] conversation in
+//                guard let `self` = self else { return }
+                guard let conversation = conversation else { return }
+                onSuccess(conversation)
+            }
         }
     }
 }
@@ -226,7 +242,47 @@ extension MessageManager: OIMAdvancedMsgListener {
     }
     
     // 启用新的撤回操作
-    private func onNewRecvMessageRevoked(_ messageRevoked: OIMMessageRevokedInfo) {
+    internal func onNewRecvMessageRevoked(_ messageRevoked: OIMMessageRevokedInfo) {
         msgRevokeReceived.onNext(messageRevoked)
+    }
+}
+extension MessageManager: OIMFriendshipListener {
+    @objc public func onFriendApplicationAdded(_ application: OIMFriendApplication) {
+        friendApplicationChangedSubject.onNext(application)
+    }
+    
+    @objc public func onFriendInfoChanged(_ info: OIMFriendInfo) {
+        friendInfoChangedSubject.onNext(info)
+    }
+    
+    public func onBlackAdded(_ info: OIMBlackInfo) {
+        onBlackAddedSubject.onNext(info)
+    }
+    
+    public func onBlackDeleted(_ info: OIMBlackInfo) {
+        onBlackDeletedSubject.onNext(info)
+    }
+}
+// MARK: OIMGroupListener
+
+extension MessageManager: OIMGroupListener {
+    public func onGroupApplicationAdded(_ groupApplication: OIMGroupApplicationInfo) {
+        groupApplicationChangedSubject.onNext(groupApplication)
+    }
+    
+    public func onGroupInfoChanged(_ changeInfo: OIMGroupInfo) {
+        groupInfoChangedSubject.onNext(changeInfo)
+    }
+    
+    public func onGroupMemberInfoChanged(_ changeInfo: OIMGroupMemberInfo) {
+        groupMemberInfoChange.onNext(changeInfo)
+    }
+    
+    public func onJoinedGroupAdded(_ groupInfo: OIMGroupInfo) {
+        joinedGroupAdded.onNext(groupInfo)
+    }
+    
+    public func onJoinedGroupDeleted(_ groupInfo: OIMGroupInfo) {
+        joinedGroupDeleted.onNext(groupInfo)
     }
 }

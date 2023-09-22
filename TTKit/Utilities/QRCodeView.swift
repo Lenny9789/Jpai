@@ -14,8 +14,8 @@ class QRCodeView: UIView {
     
     lazy var payLabel: UILabel = {
         let label = UILabel()
-        label.text = .localized_scanToPay
-        label.textColor = .white
+        label.text = "扫描二维码，添加我为好友"
+        label.textColor = .systemGray3
         label.font = .fontMedium(fontSize: 14)
         return label
     }()

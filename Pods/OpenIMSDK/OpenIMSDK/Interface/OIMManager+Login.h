@@ -17,12 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 /*
  * 登录
  *
- * @param userID   用户ID
+ * @param uid   用户ID
  *              uid来自于自身业务服务器
  * @param token 用户token
  *              token需要业务服务器向OpenIM服务端交换获取。
  */
-- (void)login:(NSString *)userID
+- (void)login:(NSString *)uid
         token:(NSString *)token
     onSuccess:(nullable OIMSuccessCallback)onSuccess
     onFailure:(nullable OIMFailureCallback)onFailure;
