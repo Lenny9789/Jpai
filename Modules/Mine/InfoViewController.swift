@@ -126,7 +126,7 @@ class InfoViewController: BaseViewController {
             withURL: URL(string: kUserInfoModel["FaceURL"].stringValue),
             placeholderImage: UIImage(.systemRed, content: kUserInfoModel["NickName"].stringValue, width: 40)
         )
-//        self.viewModel.avatar = kUserModel.icon
+        self.viewModel.uploadedUrl = kUserInfoModel["FaceURL"].stringValue
         self.nameCell.textField.text = kUserInfoModel["NickName"].stringValue
         self.birthdayCell.detailLabel.text = kUserInfoModel["Birth"].stringValue
         self.viewModel.birthDate = kUserInfoModel["Birth"].stringValue
@@ -143,8 +143,9 @@ class InfoViewController: BaseViewController {
         let birth = viewModel.birthDate
         let phone = phoneCell.textField.text ?? ""
         let email = emailCell.textField.text ?? ""
-        
+        let avatar = viewModel.uploadedUrl
         let param: Param = ["NickName": NickName,
+                            "FaceURL": avatar,
                             "Birth": birth,
                             "Email": email,
                             "Phone": phone,
@@ -244,17 +245,18 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
                 config.allowSelectVideo = false
                 config.maxSelectCount = 1
                 let controller = ZLPhotoPreviewSheet()
-                
-//                controller.selectImageBlock = { [weak self] images,assets, isOriginal in
-//                    guard let `self` = self else { return }
-//                    debugPrint(images)
-//                    debugPrint(assets)
-//                    debugPrint(isOriginal)
-//                    guard let img = images.first else { return  }
-//                    self.viewModel.showLoader()
-//        
-//                    
-//                }
+                controller.selectImageBlock = { [weak self] results, isOrigin in
+                    guard let `self` = self else { return }
+                    guard let asset = results.first?.asset else { return }
+                    
+                    self.viewModel.showLoader()
+                    self.viewModel.upload(asset) { success in
+                        self.viewModel.hideLoader()
+                        guard success else { return }
+                        
+                        self.updateInfo()
+                    }
+                }
                 controller.showPreview(animate: true, sender: self)
                 
             case 2:

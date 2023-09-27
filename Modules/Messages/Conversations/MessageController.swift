@@ -152,6 +152,11 @@ class MessageController: TTViewController {
     }
     
     private func setupBindings() {
+        mainTableView.rx.contentOffset.subscribe { [weak self] _ in
+            guard let `self` = self else { return }
+            self.view.endEditing(true)
+        }.disposed(by: disposeBag)
+        
         mainNavView.addButton.rx.tap.subscribe { [weak self] _ in
             guard let `self` = self else { return }
             
@@ -187,8 +192,6 @@ class MessageController: TTViewController {
             
             self.fetchConversitions()
         }.disposed(by: disposeBag)
-        
-        
         
         MessageManager.shared.totalUnreadSubject.subscribe { [weak self] event in
             guard let `self` = self else { return }

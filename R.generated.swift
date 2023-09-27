@@ -185,7 +185,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 49 images.
+  /// This `R.image` struct is generated, and contains static references to 57 images.
   struct image {
     /// Image `ScanLine`.
     static let scanLine = Rswift.ImageResource(bundle: R.hostingBundle, name: "ScanLine")
@@ -225,6 +225,8 @@ struct R: Rswift.Validatable {
     static let chatroom_msg_sender_voice = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_sender_voice")
     /// Image `chatroom_msg_state_error`.
     static let chatroom_msg_state_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "chatroom_msg_state_error")
+    /// Image `checkmark.circle`.
+    static let checkmarkCircle = Rswift.ImageResource(bundle: R.hostingBundle, name: "checkmark.circle")
     /// Image `comment_close_btn`.
     static let comment_close_btn = Rswift.ImageResource(bundle: R.hostingBundle, name: "comment_close_btn")
     /// Image `common_call`.
@@ -253,6 +255,8 @@ struct R: Rswift.Validatable {
     static let flashOff = Rswift.ImageResource(bundle: R.hostingBundle, name: "flashOff")
     /// Image `flashOn`.
     static let flashOn = Rswift.ImageResource(bundle: R.hostingBundle, name: "flashOn")
+    /// Image `forward.circle`.
+    static let forwardCircle = Rswift.ImageResource(bundle: R.hostingBundle, name: "forward.circle")
     /// Image `icon_back`.
     static let icon_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_back")
     /// Image `info.square`.
@@ -275,6 +279,8 @@ struct R: Rswift.Validatable {
     static let mineExit = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine.exit")
     /// Image `mine.safe`.
     static let mineSafe = Rswift.ImageResource(bundle: R.hostingBundle, name: "mine.safe")
+    /// Image `minus.circle`.
+    static let minusCircle = Rswift.ImageResource(bundle: R.hostingBundle, name: "minus.circle")
     /// Image `person.fill`.
     static let personFill = Rswift.ImageResource(bundle: R.hostingBundle, name: "person.fill")
     /// Image `person`.
@@ -283,6 +289,16 @@ struct R: Rswift.Validatable {
     static let phoneArrowHighlight = Rswift.ImageResource(bundle: R.hostingBundle, name: "phone.arrow.highlight")
     /// Image `phone.arrow.normal`.
     static let phoneArrowNormal = Rswift.ImageResource(bundle: R.hostingBundle, name: "phone.arrow.normal")
+    /// Image `phone.video`.
+    static let phoneVideo = Rswift.ImageResource(bundle: R.hostingBundle, name: "phone.video")
+    /// Image `phone.voice`.
+    static let phoneVoice = Rswift.ImageResource(bundle: R.hostingBundle, name: "phone.voice")
+    /// Image `photo`.
+    static let photo = Rswift.ImageResource(bundle: R.hostingBundle, name: "photo")
+    /// Image `quote.bubble`.
+    static let quoteBubble = Rswift.ImageResource(bundle: R.hostingBundle, name: "quote.bubble")
+    /// Image `video`.
+    static let video = Rswift.ImageResource(bundle: R.hostingBundle, name: "video")
     /// Image `wallet.pass`.
     static let walletPass = Rswift.ImageResource(bundle: R.hostingBundle, name: "wallet.pass")
 
@@ -420,6 +436,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "checkmark.circle", bundle: ..., traitCollection: ...)`
+    static func checkmarkCircle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.checkmarkCircle, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "comment_close_btn", bundle: ..., traitCollection: ...)`
     static func comment_close_btn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.comment_close_btn, compatibleWith: traitCollection)
@@ -518,6 +541,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "forward.circle", bundle: ..., traitCollection: ...)`
+    static func forwardCircle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.forwardCircle, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "icon_back", bundle: ..., traitCollection: ...)`
     static func icon_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_back, compatibleWith: traitCollection)
@@ -595,6 +625,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "minus.circle", bundle: ..., traitCollection: ...)`
+    static func minusCircle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.minusCircle, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "person", bundle: ..., traitCollection: ...)`
     static func person(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.person, compatibleWith: traitCollection)
@@ -619,6 +656,41 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "phone.arrow.normal", bundle: ..., traitCollection: ...)`
     static func phoneArrowNormal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.phoneArrowNormal, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "phone.video", bundle: ..., traitCollection: ...)`
+    static func phoneVideo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.phoneVideo, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "phone.voice", bundle: ..., traitCollection: ...)`
+    static func phoneVoice(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.phoneVoice, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "photo", bundle: ..., traitCollection: ...)`
+    static func photo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.photo, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "quote.bubble", bundle: ..., traitCollection: ...)`
+    static func quoteBubble(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.quoteBubble, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "video", bundle: ..., traitCollection: ...)`
+    static func video(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.video, compatibleWith: traitCollection)
     }
     #endif
 

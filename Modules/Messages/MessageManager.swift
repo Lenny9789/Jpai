@@ -90,8 +90,6 @@ class MessageManager: NSObject {
         OIMManager.callbacker.addConversationListener(listener: self)
         OIMManager.callbacker.addAdvancedMsgListener(listener: self)
         
-        
-        
         return result
     }
     
@@ -146,37 +144,35 @@ class MessageManager: NSObject {
                          onSuccess: @escaping (OIMConversationInfo) -> Void) {
         
         if !conversationID.isEmpty {
-            
-//            Self.shared.imManager.getMultipleConversation([conversationID]) { conversations in
-//                onSuccess(conversations?.first?.toConversationInfo())
-//            } onFailure: { code, msg in
-//                print("创建会话失败:\(code), .msg:\(msg)")
-//            }
-            OIMManager.manager.getMultipleConversation([conversationID]) { [weak self] info in
-//                guard let `self` = self else { return }
+            OIMManager.manager.getMultipleConversation([conversationID]) { info in
                 guard let info = info, info.count > 0 else { return }
                 onSuccess(info[0])
             } onFailure: { code, error in
-                print("创建会话失败:\(code), .msg:\(error)")
+                print("创建会话失败:\(code), .msg:\(error ?? "")")
             }
         } else {
-            
             let conversationType = OIMConversationType(rawValue: sessionType.rawValue) ?? OIMConversationType.undefine
-            
-//            Self.shared.imManager.getOneConversation(withSessionType: conversationType, sourceID: sourceId) { (conversation: OIMConversationInfo?) in
-//                onSuccess(conversation?.toConversationInfo())
-//            } onFailure: { code, msg in
-//                print("创建会话失败:\(code), .msg:\(msg)")
-//            }
-            
             OIMManager.manager.getOneConversation(
                 withSessionType: conversationType,
                 sourceID: sourceId
-            ) { [weak self] conversation in
-//                guard let `self` = self else { return }
+            ) { conversation in
                 guard let conversation = conversation else { return }
                 onSuccess(conversation)
             }
+        }
+    }
+    
+    func updateSDKUserInfo(_ info: JSON, completion: @escaping (Bool) -> Void) {
+        let user = OIMUserInfo()
+        user.nickname = info["NickName"].stringValue
+        user.faceURL = info["FaceURL"].stringValue
+        user.userID = info["Id"].intValue.description
+        OIMManager.manager.setSelfInfo(user) { data in
+            debugPrint(data)
+            completion(true)
+        } onFailure: { code, msg in
+            debugPrint(code, "\(msg ?? "")")
+            completion(false)
         }
     }
 }

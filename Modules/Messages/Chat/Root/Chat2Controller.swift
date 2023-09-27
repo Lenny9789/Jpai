@@ -2,6 +2,7 @@
 import UIKit
 import ZLPhotoBrowser
 import AVFoundation
+import FTPopOverMenu_Swift
 
 class Chat2Controller: BaseViewController {
 
@@ -70,15 +71,15 @@ class Chat2Controller: BaseViewController {
     
     lazy var recordingView: RecorderView = {
         let view = RecorderView()
+        view.isHidden = true
         return view
     }()
     
     lazy var bottomFuncView: ChatBottomFuncTool = {
         let view = ChatBottomFuncTool()
+        view.isHidden = true
         return view
     }()
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,9 +96,6 @@ class Chat2Controller: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-//        viewModel.makeConversationMessageReaded()
-        
         
     }
     private func setupViews() {
@@ -130,6 +128,12 @@ class Chat2Controller: BaseViewController {
             .whc_Right(0)
             .whc_Left(0)
             .whc_Height(45 + kSafeAreaBottomHeight)
+        
+        view.addSubview(bottomFuncView)
+        bottomFuncView.whc_Top(0, toView: bottomInputView)
+            .whc_Left(0)
+            .whc_Right(0)
+            .whc_Height(100)
         
         view.layoutIfNeeded()
     }
@@ -222,11 +226,28 @@ class Chat2Controller: BaseViewController {
         bottomInputView.addButton.rx.tap.subscribe { [weak self] _ in
             guard let `self` = self else { return }
             self.view.endEditing(true)
-            
-            self.fetchAlbumResource()
+            self.recordingView.isHidden = true
+
+            if self.bottomFuncView.isHidden {
+                self.bottomInputView.whc_RemoveAttrs(.bottom)
+                    .whc_Height(49)
+                    .whc_Bottom(100)
+                
+            } else {
+                self.bottomInputView.whc_RemoveAttrs(.bottom)
+                    .whc_Height(ChatBottomInputTool.height)
+                    .whc_Bottom(0)
+            }
+            UIView.animate(withDuration: 0.25) {
+                self.view.layoutIfNeeded()
+            } completion: { _ in
+                self.bottomFuncView.isHidden = !self.bottomFuncView.isHidden
+            }
         }.disposed(by: disposeBag)
+        
         bottomInputView.voiceButton.rx.tap.subscribe { [weak self] _ in
             guard let `self` = self else { return }
+            self.bottomFuncView.isHidden = true
             
             if self.recordingView.isHidden {
                 self.bottomInputView.whc_RemoveAttrs(.bottom)
@@ -280,7 +301,35 @@ class Chat2Controller: BaseViewController {
         mainNavView.callButon.rx.tap.subscribe { [weak self] _ in
             guard let `self` = self else { return }
             
-            self.startRTCAction()
+//            self.startRTCAction()
+        }.disposed(by: disposeBag)
+        
+        bottomFuncView.imageButton.rx.tap.subscribe { [weak self] _ in
+            guard let `self` = self else { return }
+            self.bottomInputView.addButton.sendActions(for: .touchUpInside)
+            
+            self.fetchAlbumResource(isImage: true)
+        }.disposed(by: disposeBag)
+        
+        bottomFuncView.videoButton.rx.tap.subscribe { [weak self] _ in
+            guard let `self` = self else { return }
+            self.bottomInputView.addButton.sendActions(for: .touchUpInside)
+            
+            self.fetchAlbumResource(isImage: false)
+        }.disposed(by: disposeBag)
+        
+        bottomFuncView.voiceCallButton.rx.tap.subscribe { [weak self] _ in
+            guard let `self` = self else { return }
+            self.bottomInputView.addButton.sendActions(for: .touchUpInside)
+            
+            self.startRTCAction(isAudio: true)
+        }.disposed(by: disposeBag)
+        
+        bottomFuncView.videoCallButton.rx.tap.subscribe { [weak self] _ in
+            guard let `self` = self else { return }
+            self.bottomInputView.addButton.sendActions(for: .touchUpInside)
+            
+            self.startRTCAction(isAudio: false)
         }.disposed(by: disposeBag)
     }
     
@@ -323,12 +372,12 @@ class Chat2Controller: BaseViewController {
     }
     
     ///获取相册获取图片视频
-    func fetchAlbumResource() {
+    func fetchAlbumResource(isImage: Bool) {
         
         let config = ZLPhotoConfiguration.default()
         config.allowMixSelect = false
-        config.allowSelectVideo = true
-        config.allowSelectImage = true
+        config.allowSelectVideo = !isImage
+        config.allowSelectImage = isImage
         config.maxSelectCount = 1
         let controller = ZLPhotoPreviewSheet()
         controller.selectImageBlock = { [weak self] results, isOrigin in
@@ -352,12 +401,12 @@ class Chat2Controller: BaseViewController {
     }
     
     /// rtc
-    func startRTCAction() {
+    func startRTCAction(isAudio: Bool) {
         let uuid = UUID()
         
         let toUserId = viewModel.conversation.userID ?? ""
         let toUserName = viewModel.conversation.showName ?? ""
-        let isAudio = false
+//        let isAudio = false
         let toUserAvatar = viewModel.conversation.faceURL ?? ""
         
         func enterChannal(data: JSON, room: String) {
@@ -613,8 +662,58 @@ extension Chat2Controller: ChatCellDelegate {
             let control = ChatRecordsController(model: model)
             navigationController?.pushViewController(control, animated: true)
             
+        case .longPress:
+            guard let cell = curView as? ChatMessageCell else { return }
+            let data = cell.curMessage
             
+            let config = FTConfiguration()
+            config.backgoundTintColor = UIColor.white
+            config.borderColor = UIColor.lightGray
+            config.menuWidth = 80
+            config.menuSeparatorColor = UIColor.lightGray
+            config.menuRowHeight = 40
+            config.cornerRadius = 6
+            config.textColor = UIColor.black
+            config.textAlignment = NSTextAlignment.center
+            var menuOptionNameArray = ["删除", "转发", "回复", "多选"]
+            var menuOptionImageArray = ["minus.circle", "forward.circle", "quote.bubble", "checkmark.circle"]
             
+            FTPopOverMenu.showForSender(
+                sender: cell.container,
+                with: menuOptionNameArray,
+                menuImageArray: menuOptionImageArray) { [weak self] index in
+                    guard let `self` = self else { return }
+                    switch index {
+                    case 0:
+                        self.viewModel.showLoader()
+                        OIMManager.manager.deleteMessage(
+                            self.viewModel.conversation.conversationID ?? "",
+                            clientMsgID: cell.curMessage.clientMsgID ?? ""
+                        ) { msg in
+                            self.viewModel.hideLoader()
+                            if let dataIndex = self.viewModel.messages.firstIndex(of: cell.curMessage) {
+                                self.viewModel.messages.remove(at: dataIndex)
+                                self.viewModel.cellHeightCache.removeAll()
+                                self.mainTableView.reloadSections([0], with: .fade)
+                                self.viewModel.showToast("删除成功")
+                            }
+                        } onFailure: { code, msg in
+                            debugPrint("code:\(code), \(msg ?? "")")
+                            self.viewModel.hideLoader()
+                            self.viewModel.showToast("删除失败")
+                        }
+                        
+                    case 1:
+                        let control = SelectContactsViewController()
+                        control.selectedContact { infos in
+                            debugPrint(infos)
+                        }
+                        
+                        self.navigationController?.pushViewController(control, animated: true)
+                    default:
+                        break
+                    }
+                }
             
         default:
             break

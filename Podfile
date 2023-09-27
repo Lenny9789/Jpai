@@ -83,6 +83,7 @@ target 'Jpai' do
   #  pod 'JPImageresizerView', '~> 1.3.4'    #裁剪图片、GIF、视频
   #  pod 'lottie-ios'                        #骨骼动画
   pod 'JXSegmentedView'                   #主流APP分类切换滚动视图
+  pod 'FTPopOverMenu_Swift'
 #  pod 'JXPagingView/Paging'
   #  pod 'GKPageScrollView/Swift'            #UIScrollview嵌套滑动库
   #  pod 'GKPageSmoothView/Swift'            #UIScrollview嵌套滑动库

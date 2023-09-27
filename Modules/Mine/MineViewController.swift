@@ -22,6 +22,8 @@ class MineViewController: BaseViewController {
         return view
     }()
     
+    let infoModel = InfoViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +34,15 @@ class MineViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
+        
+        guard let id = kUserInfoModel["Id"].int, id >= 0 else {
+            infoModel.fetchUserInfo { [weak self] success in
+                guard let `self` = self else { return }
+                guard success else { return }
+                self.mainNavView.presentInfo()
+            }
+            return
+        }
         
         mainNavView.presentInfo()
     }

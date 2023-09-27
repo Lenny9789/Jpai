@@ -61,7 +61,7 @@ class ChatMessageCell: ChatBaseCell {
 //        contentView.addSubview(retryView)
 //        contentView.addSubview(indicator)
         contentView.addSubview(readLabel)
-        
+        readLabel.isHidden = true
         // 图像点击
         let tapAvatar = UITapGestureRecognizer()
         avatarView.isUserInteractionEnabled = true
@@ -71,6 +71,17 @@ class ChatMessageCell: ChatBaseCell {
                 guard let `self` = self else { return }
                 
                 self.eventDelegate?.cellAction(self, event: .avatarTapped)
+            }).disposed(by: disposeBag)
+        
+        // 长按点击
+        let tapLong = UILongPressGestureRecognizer()
+        container.isUserInteractionEnabled = true
+        container.addGestureRecognizer(tapLong)
+        tapLong.rx.event
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                
+                self.eventDelegate?.cellAction(self, event: .longPress)
             }).disposed(by: disposeBag)
     }
     
@@ -90,14 +101,16 @@ class ChatMessageCell: ChatBaseCell {
         
         nameLabel.text = data.senderNickname
         
-        if data.isRead {
-            readLabel.isHidden = false
-            readLabel.text = "已读"
-            readLabel.textColor = .placeholderText
-        } else {
-            readLabel.isHidden = false
-            readLabel.text = "未读"
-            readLabel.textColor = .systemRed
+        if !data.isInComing() && data.sessionType == .C2C {
+            if data.isRead {
+                readLabel.isHidden = false
+                readLabel.text = "已读"
+                readLabel.textColor = .placeholderText
+            } else {
+                readLabel.isHidden = false
+                readLabel.text = "未读"
+                readLabel.textColor = .systemRed
+            }
         }
         
         setNeedsLayout()

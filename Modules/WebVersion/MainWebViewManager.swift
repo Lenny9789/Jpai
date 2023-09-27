@@ -299,6 +299,10 @@ extension MainWebView {
             guard let `self` = self else { return }
             switch result {
             case .success(let model):
+                if model["status"].intValue == 200 {
+                    kUserInfoModel = model["data"]
+                    
+                }
                 self.createJSExecute(funcId, data: model.toJSONString() ?? "")
 
             case .failure(let error):

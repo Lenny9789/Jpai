@@ -24,6 +24,7 @@ PODS:
     - DifferenceKit/Core
   - Differentiator (5.0.0)
   - ESPullToRefresh (2.9.3)
+  - FTPopOverMenu_Swift (0.4.3)
   - GKNavigationBarSwift (1.6.4)
   - InputBarAccessoryView (5.5.0):
     - InputBarAccessoryView/Core (= 5.5.0)
@@ -161,6 +162,7 @@ DEPENDENCIES:
   - DeviceKit
   - DifferenceKit
   - ESPullToRefresh
+  - FTPopOverMenu_Swift
   - GKNavigationBarSwift
   - InputBarAccessoryView
   - IQKeyboardManagerSwift
@@ -213,6 +215,7 @@ SPEC REPOS:
     - DifferenceKit
     - Differentiator
     - ESPullToRefresh
+    - FTPopOverMenu_Swift
     - GKNavigationBarSwift
     - InputBarAccessoryView
     - IQKeyboardManagerSwift
@@ -263,6 +266,7 @@ SPEC CHECKSUMS:
   DifferenceKit: ab185c4d7f9cef8af3fcf593e5b387fb81e999ca
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   ESPullToRefresh: 0d68daa602b343c81753a1b95e09fd0bfcddfd40
+  FTPopOverMenu_Swift: 85ac1c04b04f6b4ac394414602c6a71ef3f66cc2
   GKNavigationBarSwift: 50ccb0c404b2b13aaa015343083938a15805f89d
   InputBarAccessoryView: 1d7b0a672b36e370f01f264b3907ef39d03328e3
   IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
@@ -300,6 +304,6 @@ SPEC CHECKSUMS:
   ZFPlayer: 624c92de06eb34df322c3b53b4c9ce760f528f7a
   ZLPhotoBrowser: 02b3569b8f702d2e153e8fdb1f6b32fef3a2867c
 
-PODFILE CHECKSUM: f9188b3d1f1358a039719211b10d28266a7d3575
+PODFILE CHECKSUM: a0dc8746b952ebf7a5116da59964d96fba2b955e
 
 COCOAPODS: 1.12.1

@@ -17,8 +17,8 @@ class ChatBaseCell: TableViewBaseCell {
         case videoTapped
         /// 图片点击
         case pictureTapped
-        /// 购买点击
-        case payTapped
+        /// 长按
+        case longPress
         /// 转发列表
         case forwardList
         /// 喜欢列表
