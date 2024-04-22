@@ -893,9 +893,9 @@
 		B8129C4F2A9D9A590046C53C /* SDAVAsset */ = {
 			isa = PBXGroup;
 			children = (
+				B8129C522A9D9A590046C53C /* SDAVAssetExportSession.h */,
 				B8129C502A9D9A590046C53C /* SDAVAssetExportSession.m */,
 				B8129C512A9D9A590046C53C /* SDAVAssetUtil.swift */,
-				B8129C522A9D9A590046C53C /* SDAVAssetExportSession.h */,
 			);
 			path = SDAVAsset;
 			sourceTree = "<group>";
