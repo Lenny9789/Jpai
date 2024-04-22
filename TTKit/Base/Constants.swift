@@ -24,7 +24,7 @@ public func kIsIosVersion(version: Float) -> Bool {
 public let kIsIPhone = UIDevice.current.userInterfaceIdiom == .phone
 
 /// 是否刘海屏（利用safeAreaInsets.bottom > 0 来判断是否是iPhoneX系列）
-public func kIsIPhoneX() -> Bool {
+public let kIsIPhoneX: Bool = {
     guard let window = UIApplication.shared.delegate?.window else {
         return false
     }
@@ -32,7 +32,7 @@ public func kIsIPhoneX() -> Bool {
         return false
     }
     return window!.safeAreaInsets.bottom > 0.0
-}
+}()
 
 /// 是否iPad
 public let kIsIPad = UIDevice.current.userInterfaceIdiom == .pad
@@ -54,58 +54,78 @@ public var kScreenBounds = UIScreen.main.bounds
 public var kScreenSize = UIScreen.main.bounds.size
 
 /// 屏幕宽
-//public var kScreenWidth = UIScreen.main.bounds.size.width
+public var kScreenWidth = UIScreen.main.bounds.size.width
 
 /// 屏幕高
-//public var kScreenHeight = UIScreen.main.bounds.size.height
+public var kScreenHeight = UIScreen.main.bounds.size.height
 
 /// 状态栏高
-//public let kStatusBarHeight = UIApplication.shared.statusBarFrame.size.height
-
-/// 导航栏高
-public let kNavBarHeight = CGFloat(44.0)
-
-/// 状态栏+导航栏的高度
-public let kStatusAndNavBarHeight = (kStatusBarHeight + kNavBarHeight)
-
-/// 底部菜单栏高度
-public let kTabBarHeight = kIsIPhoneX() ? CGFloat(83.0) : CGFloat(49.0)
-
-/// 通用工具栏高度
-public let kToolbarHeight = CGFloat(49.0)
-
-/// 键盘工具栏高度
-public let kKeyboardBarHeight = CGFloat(44.0)
+public let kStatusBarHeight: CGFloat = {
+    if #available(iOS 13.0, *) {
+        if #available(iOS 15.0, *) {
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return (windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0)
+        } else {
+            let statusBarHeight = UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+            return statusBarHeight
+        }
+    } else {
+        return UIApplication.shared.statusBarFrame.height
+    }
+}()
 
 /// keyWindow
-public func kKeyWindow() -> UIWindow? {
-    return UIApplication.shared.windows.first { $0.isKeyWindow }
-}
+public let kKeyWindow: UIWindow? = {
+    if #available(iOS 13.0, *) {
+        if #available(iOS 15.0, *) {
+            let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+            return windowScene!.windows.first { $0.isKeyWindow }
+        } else {
+            return UIApplication.shared.windows.first
+        }
+    } else {
+        return UIApplication.shared.keyWindow
+    }
+}()
 
 /// 顶部安全区域高
-public func kSafeAreaTopHeight() -> CGFloat {
+public let kSafeAreaTopHeight: CGFloat = {
     if #available(iOS 11.0, *) { //47
-        if let height = UIApplication.shared.keyWindow?.safeAreaInsets.top {
+        if let height = kKeyWindow?.safeAreaInsets.top {
             return height
         }
     }
     return 20.0;
-}
+}()
 
 /// 底部安全区域高
-//public func kSafeAreaBottomHeight() -> CGFloat {
-//    if #available(iOS 11.0, *) { //34
-//        if let height = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
-//            return height
-//        }
-//    }
-//    return 0.0;
-//}
+public let kSafeAreaBottomHeight: CGFloat = {
+    if #available(iOS 11.0, *) { //34
+        if let height = kKeyWindow?.safeAreaInsets.bottom {
+            return height
+        }
+    }
+    return 0.0;
+}()
+/// 导航栏高
+public let kNavBarHeight = CGFloat(44.0)
+/// 通用工具栏高度
+public let kToolbarHeight = CGFloat(49.0)
+/// 状态栏+导航栏的高度
+public let kStatusAndNavBarHeight = (kStatusBarHeight + kNavBarHeight)
+
+/// 底部菜单栏高度
+public let kTabBarHeight = kSafeAreaBottomHeight + kToolbarHeight
+
+/// 键盘工具栏高度
+public let kKeyboardBarHeight = CGFloat(44.0)
+
+
 
 /// 左侧安全区域高
 public func kSafeAreaLeftWidth() -> CGFloat {
     if #available(iOS 11.0, *) { //landscapeRight：47
-        if let height = UIApplication.shared.keyWindow?.safeAreaInsets.left {
+        if let height = kKeyWindow?.safeAreaInsets.left {
             return height
         }
     }
@@ -217,9 +237,8 @@ public func kAPPIcon() -> UIImage? {
     let infoDict = Bundle.main.infoDictionary
     if let icons = infoDict?["CFBundleIcons"] as? [String: Any],
        let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
-       let iconFiles = primaryIcon["CFBundleIconFiles"] as? [String],
-       let lastIcon = iconFiles.last {
-        return UIImage(named: lastIcon)
+       let iconName = primaryIcon["CFBundleIconName"] as? String {
+        return UIImage(named: iconName)
     }
     return nil
 }
@@ -265,26 +284,24 @@ public func kGetObjectFromUserDefaults(key: String) -> Any? {
 }
 
 
-/// 判断是否第一次启动App
-public func kAppIsFristLaunch() -> Bool {
-    UserDefaults.standard.bool(forKey: "appLaunched")
-}
-
-/// 标记已启动过App
-public func kSetAppLaunched() {
-    UserDefaults.standard.set(true, forKey: "appLaunched")
-    UserDefaults.standard.synchronize()
+/// 判断是否第一次启动App 
+public var kAppIsFirstLaunch: Bool {
+    set {
+        Defaults[\.isFirstLaunch] = newValue
+    }
+    get {
+        return Defaults[\.isFirstLaunch]
+    }
 }
 
 /// 判断是否第一次登录App
-public func kAppIsNotFristLogin() -> Bool {
-    UserDefaults.standard.bool(forKey: "appLogined")
-}
-
-/// 标记已登录过App
-public func kSetAppLogined() {
-    UserDefaults.standard.set(true, forKey: "appLogined")
-    UserDefaults.standard.synchronize()
+public var kAppIsFristLogin: Bool {
+    set {
+        Defaults[\.isFirstLogin] = newValue
+    }
+    get {
+        return Defaults[\.isFirstLogin]
+    }
 }
 
 /// 判断是否已显示隐私弹框
@@ -403,6 +420,14 @@ public func delayExecuting(_ seconds: Double, inMain: Bool = true, closure: @esc
     }
 }
 
+extension DefaultsKeys {
+    var isFirstLaunch: DefaultsKey<Bool> {
+        .init("isFirstLaunch", defaultValue: true)
+    }
+    var isFirstLogin: DefaultsKey<Bool> {
+        .init("isFirstLogin", defaultValue: true)
+    }
+}
 
 /// 同步Protocol
 public protocol InternalSynchronizing {
